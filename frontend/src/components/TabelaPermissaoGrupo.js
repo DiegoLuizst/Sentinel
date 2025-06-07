@@ -34,7 +34,6 @@ function Tabela({ vetor, selecionar }) {
                                         : 'Nenhuma'}
                                 </td>
                                 <td>
-                                    <button onClick={() => selecionar(index)} className="btn btn-sm btn-warning me-2" title="Selecionar"><i className="fa fa-check"></i></button>
                                     <button onClick={(e) => { e.stopPropagation(); abrirModal(grupo); }} className="btn btn-sm btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
                                 </td>
                             </tr>

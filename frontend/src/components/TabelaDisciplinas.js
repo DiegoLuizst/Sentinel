@@ -115,7 +115,6 @@ function Tabela({ vetor, selecionar }) {
                                             <td>{obj.carga_horaria}</td>
 
                                             <td>
-                                                <button onClick={() => { selecionar(indice); }} className="btn btn-warning me-2" title="Selecionar"><i className="fa fa-check"></i></button>
                                                 <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
                                             </td>
                                         </tr>
