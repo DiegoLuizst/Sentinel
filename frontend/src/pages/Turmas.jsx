@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import Formulario from '../components/FormularioTurmas';
 import Tabela from '../components/TabelaTurmas';
@@ -24,7 +24,7 @@ function Turmas() {
     const [objTurmas, setObjTurmas] = useState(turma);
     const [alertMsg, setAlertMsg] = useState("");
     const [confirmMsg, setConfirmMsg] = useState("");
-    const [confirmAction, setConfirmAction] = useState(() => {});
+    const confirmAction = useRef(() => {});
 
 
 
@@ -50,7 +50,7 @@ function Turmas() {
     }
 
     const showConfirm = (action, message) => {
-        setConfirmAction(() => action);
+        confirmAction.current = action;
         setConfirmMsg(message);
         window.$('#confirmTurma').modal('show');
     }
@@ -260,7 +260,7 @@ function Turmas() {
 
                     />
                     <Tabela vetor={turmas} selecionar={selecionarTurma} />
-                    <ConfirmModal id="confirmTurma" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
+                    <ConfirmModal id="confirmTurma" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction.current()} />
                 </div>
             </div>
         </>

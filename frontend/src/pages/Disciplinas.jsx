@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import Formulario from '../components/FormularioDisciplinas';
 import Tabela from '../components/TabelaDisciplinas';
@@ -21,7 +21,7 @@ function Disciplinas() {
     const [objDisciplinas, setObjDisciplinas] = useState(disciplina);
     const [alertMsg, setAlertMsg] = useState("");
     const [confirmMsg, setConfirmMsg] = useState("");
-    const [confirmAction, setConfirmAction] = useState(() => {});
+    const confirmAction = useRef(() => {});
 
 
 
@@ -47,7 +47,7 @@ function Disciplinas() {
     }
 
     const showConfirm = (action, message) => {
-        setConfirmAction(() => action);
+        confirmAction.current = action;
         setConfirmMsg(message);
         window.$('#confirmDisciplina').modal('show');
     }
@@ -254,7 +254,7 @@ function Disciplinas() {
 
                     />
                     <Tabela vetor={disciplinas} selecionar={selecionarDisciplina} />
-                    <ConfirmModal id="confirmDisciplina" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
+                    <ConfirmModal id="confirmDisciplina" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction.current()} />
                 </div>
             </div>
         </>
