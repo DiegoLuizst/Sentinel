@@ -111,14 +111,14 @@ function Tabela({ vetor, selecionar }) {
                                     </thead>
                                     <tbody>
                                         {vetor.map((obj, indice) => (
-                                            <tr key={indice}>
+                                            <tr key={indice} onClick={() => selecionar(indice)} style={{ cursor: 'pointer' }}>
                                                 <td>{indice + 1}</td>
                                                 <td>{obj.nome}</td>
                                                 <td>{obj.nome_resp1} ({obj.parentesco_resp1})</td>
                                                 <td>{obj.telefone_resp1}</td>
                                                 <td>
-                                                    <button onClick={() => selecionar(indice)} className="btn btn-warning me-2">Selecionar</button>
-                                                    <button onClick={() => abrirModal(obj)} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
+                                                    <button onClick={() => selecionar(indice)} className="btn btn-warning me-2" title="Selecionar"><i className="fa fa-check"></i></button>
+                                                    <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
                                                 </td>
                                             </tr>
                                         ))}
