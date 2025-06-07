@@ -262,13 +262,7 @@ function Alunos() {
         setDesabilitarResp2(false);
     };
 
-    const buscarAlunos = useCallback(() => {
-        fetchWithAuth("/listar-alunos")
-            .then(data => setAlunos(data))
-            .catch(error => console.error("Erro ao buscar alunos:", error));
-    }, []);
-
-    const fetchWithAuth = async (url, options = {}) => {
+    const fetchWithAuth = useCallback(async (url, options = {}) => {
         const response = await fetch(`http://localhost:8080${url}`, {
             ...options,
             headers: {
@@ -283,7 +277,13 @@ function Alunos() {
         }
 
         return response.json();
-    };
+    }, []);
+
+    const buscarAlunos = useCallback(() => {
+        fetchWithAuth("/listar-alunos")
+            .then(data => setAlunos(data))
+            .catch(error => console.error("Erro ao buscar alunos:", error));
+    }, [fetchWithAuth]);
 
     return (
         <>
