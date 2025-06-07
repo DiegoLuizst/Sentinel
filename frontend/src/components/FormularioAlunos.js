@@ -150,6 +150,22 @@ function Formulario({
                                     </div>
                                 </div>
 
+                                <div className="col-md-12">
+                                    <div className="form-check">
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id="mesmoEnderecoAluno"
+                                            name="mesmoEnderecoAluno"
+                                            checked={obj.mesmoEnderecoAluno}
+                                            onChange={eventoTeclado}
+                                        />
+                                        <label className="form-check-label" htmlFor="mesmoEnderecoAluno">
+                                            Mesmo endereço do aluno
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <div className="col-md-3">
                                     <input
                                         type="email"
@@ -252,11 +268,25 @@ function Formulario({
                                         mask="(00) 00000-0000"
                                         className="form-control"
                                         name="telefone_resp2"
-                                        value={obj.telefone_resp2}
+                                        value={obj.mesmoTelefoneAlunoResp2 ? obj.telefone : obj.telefone_resp2}
                                         placeholder="Telefone"
                                         onAccept={(value) => eventoTeclado({ target: { name: 'telefone_resp2', value } })}
-                                        disabled={desabilitarResp2}
+                                        disabled={desabilitarResp2 || obj.mesmoTelefoneAlunoResp2}
                                     />
+                                    <div className="form-check">
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id="mesmoTelefoneAlunoResp2"
+                                            name="mesmoTelefoneAlunoResp2"
+                                            checked={obj.mesmoTelefoneAlunoResp2}
+                                            onChange={eventoTeclado}
+                                            disabled={desabilitarResp2}
+                                        />
+                                        <label className="form-check-label" htmlFor="mesmoTelefoneAlunoResp2">
+                                            Mesmo telefone do aluno
+                                        </label>
+                                    </div>
                                 </div>
 
                                 <div className="col-md-3">
@@ -264,11 +294,25 @@ function Formulario({
                                         type="email"
                                         className="form-control"
                                         name="email_resp2"
-                                        value={obj.email_resp2}
+                                        value={obj.mesmoEmailAlunoResp2 ? obj.email : obj.email_resp2}
                                         placeholder="Email"
                                         onChange={eventoTeclado}
-                                        disabled={desabilitarResp2}
+                                        disabled={desabilitarResp2 || obj.mesmoEmailAlunoResp2}
                                     />
+                                    <div className="form-check">
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id="mesmoEmailAlunoResp2"
+                                            name="mesmoEmailAlunoResp2"
+                                            checked={obj.mesmoEmailAlunoResp2}
+                                            onChange={eventoTeclado}
+                                            disabled={desabilitarResp2}
+                                        />
+                                        <label className="form-check-label" htmlFor="mesmoEmailAlunoResp2">
+                                            Mesmo email do aluno
+                                        </label>
+                                    </div>
                                 </div>
 
                                 <div className="col-md-3">
@@ -288,47 +332,64 @@ function Formulario({
                                         mask="00000-000"
                                         className="form-control"
                                         name="cep_resp2"
-                                        value={obj.cep_resp2}
+                                        value={obj.mesmoEnderecoAlunoResp2 ? obj.cep : obj.cep_resp2}
                                         placeholder="CEP"
                                         onAccept={(value) => eventoTeclado({ target: { name: 'cep_resp2', value } })}
-                                        disabled={desabilitarResp2}
+                                        disabled={desabilitarResp2 || obj.mesmoEnderecoAlunoResp2}
                                     />
+                                </div>
+
+                                <div className="col-md-12">
+                                    <div className="form-check mb-2">
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id="mesmoEnderecoAlunoResp2"
+                                            name="mesmoEnderecoAlunoResp2"
+                                            checked={obj.mesmoEnderecoAlunoResp2}
+                                            onChange={eventoTeclado}
+                                            disabled={desabilitarResp2}
+                                        />
+                                        <label className="form-check-label" htmlFor="mesmoEnderecoAlunoResp2">
+                                            Mesmo endereço do aluno
+                                        </label>
+                                    </div>
                                 </div>
 
                                 <div className="col-md-4">
                                     <input type="text" className="form-control" name="rua_resp2"
-                                        value={obj.rua_resp2}
-                                        placeholder="Rua" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                        value={obj.mesmoEnderecoAlunoResp2 ? obj.rua : obj.rua_resp2}
+                                        placeholder="Rua" onChange={eventoTeclado} disabled={desabilitarResp2 || obj.mesmoEnderecoAlunoResp2} />
                                 </div>
 
                                 <div className="col-md-2">
                                     <input type="text" className="form-control" name="numero_resp2"
-                                        value={obj.numero_resp2}
-                                        placeholder="Número" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                        value={obj.mesmoEnderecoAlunoResp2 ? obj.numero : obj.numero_resp2}
+                                        placeholder="Número" onChange={eventoTeclado} disabled={desabilitarResp2 || obj.mesmoEnderecoAlunoResp2} />
                                 </div>
 
                                 <div className="col-md-2">
                                     <input type="text" className="form-control" name="complemento_resp2"
-                                        value={obj.complemento_resp2}
-                                        placeholder="Complemento" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                        value={obj.mesmoEnderecoAlunoResp2 ? obj.complemento : obj.complemento_resp2}
+                                        placeholder="Complemento" onChange={eventoTeclado} disabled={desabilitarResp2 || obj.mesmoEnderecoAlunoResp2} />
                                 </div>
 
                                 <div className="col-md-2">
                                     <input type="text" className="form-control" name="bairro_resp2"
-                                        value={obj.bairro_resp2}
-                                        placeholder="Bairro" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                        value={obj.mesmoEnderecoAlunoResp2 ? obj.bairro : obj.bairro_resp2}
+                                        placeholder="Bairro" onChange={eventoTeclado} disabled={desabilitarResp2 || obj.mesmoEnderecoAlunoResp2} />
                                 </div>
 
                                 <div className="col-md-2">
                                     <input type="text" className="form-control" name="cidade_resp2"
-                                        value={obj.cidade_resp2}
-                                        placeholder="Cidade" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                        value={obj.mesmoEnderecoAlunoResp2 ? obj.cidade : obj.cidade_resp2}
+                                        placeholder="Cidade" onChange={eventoTeclado} disabled={desabilitarResp2 || obj.mesmoEnderecoAlunoResp2} />
                                 </div>
 
                                 <div className="col-md-2">
                                     <input type="text" className="form-control" name="estado_resp2"
-                                        value={obj.estado_resp2}
-                                        placeholder="Estado" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                        value={obj.mesmoEnderecoAlunoResp2 ? obj.estado : obj.estado_resp2}
+                                        placeholder="Estado" onChange={eventoTeclado} disabled={desabilitarResp2 || obj.mesmoEnderecoAlunoResp2} />
                                 </div>
 
                                 <div className="col-md-3">
