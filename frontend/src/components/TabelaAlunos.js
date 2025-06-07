@@ -158,7 +158,7 @@ function Tabela({ vetor, selecionar }) {
                                             <InfoItem icon="user" label="Nome" value={alunoSelecionado.nome} />
                                             <InfoItem icon="calendar" label="Data de Nascimento" value={formatarData(alunoSelecionado.data)} />
                                             <InfoItem icon="venus-mars" label="Gênero" value={alunoSelecionado.genero} />
-                                            <InfoItem icon="home" label="Endereço" value={alunoSelecionado.endereco} />
+                                            <InfoItem icon="home" label="Endereço" value={`${alunoSelecionado.rua}, ${alunoSelecionado.numero} - ${alunoSelecionado.bairro} - ${alunoSelecionado.cidade}/${alunoSelecionado.estado}`} />
                                             <InfoItem icon="phone" label="Telefone" value={alunoSelecionado.telefone} />
                                             <InfoItem icon="envelope" label="Email" value={alunoSelecionado.email} />
                                             <InfoItem icon="chalkboard-teacher" label="Turma" value={alunoSelecionado.turma?.nome} />
@@ -169,7 +169,7 @@ function Tabela({ vetor, selecionar }) {
                                             <InfoItem icon="phone" label="Telefone" value={alunoSelecionado.telefone_resp1} />
                                             <InfoItem icon="envelope" label="Email" value={alunoSelecionado.email_resp1} />
                                             <InfoItem icon="id-card" label="CPF" value={alunoSelecionado.cpf_resp1} />
-                                            <InfoItem icon="map-marker-alt" label="Endereço" value={alunoSelecionado.endereco_resp1} />
+                                            <InfoItem icon="map-marker-alt" label="Endereço" value={`${alunoSelecionado.rua_resp1}, ${alunoSelecionado.numero_resp1} - ${alunoSelecionado.bairro_resp1} - ${alunoSelecionado.cidade_resp1}/${alunoSelecionado.estado_resp1}`} />
                                             <InfoItem icon="users" label="Parentesco" value={alunoSelecionado.parentesco_resp1} />
                                         </div>
 
@@ -178,7 +178,7 @@ function Tabela({ vetor, selecionar }) {
                                             <InfoItem icon="phone" label="Telefone" value={alunoSelecionado.telefone_resp2} />
                                             <InfoItem icon="envelope" label="Email" value={alunoSelecionado.email_resp2} />
                                             <InfoItem icon="id-card" label="CPF" value={alunoSelecionado.cpf_resp2} />
-                                            <InfoItem icon="map-marker-alt" label="Endereço" value={alunoSelecionado.endereco_resp2} />
+                                            <InfoItem icon="map-marker-alt" label="Endereço" value={`${alunoSelecionado.rua_resp2}, ${alunoSelecionado.numero_resp2} - ${alunoSelecionado.bairro_resp2} - ${alunoSelecionado.cidade_resp2}/${alunoSelecionado.estado_resp2}`} />
                                             <InfoItem icon="users" label="Parentesco" value={alunoSelecionado.parentesco_resp2} />
                                         </div>
                                     </div>

@@ -8,20 +8,38 @@ function Alunos() {
         nome: '',
         data: '',
         genero: '',
-        endereco: '',
+        cep: '',
+        rua: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
         telefone: '',
         email: '',
         nome_resp1: '',
         telefone_resp1: '',
         email_resp1: '',
         cpf_resp1: '',
-        endereco_resp1: '',
+        cep_resp1: '',
+        rua_resp1: '',
+        numero_resp1: '',
+        complemento_resp1: '',
+        bairro_resp1: '',
+        cidade_resp1: '',
+        estado_resp1: '',
         parentesco_resp1: '',
         nome_resp2: '',
         telefone_resp2: '',
         email_resp2: '',
         cpf_resp2: '',
-        endereco_resp2: '',
+        cep_resp2: '',
+        rua_resp2: '',
+        numero_resp2: '',
+        complemento_resp2: '',
+        bairro_resp2: '',
+        cidade_resp2: '',
+        estado_resp2: '',
         parentesco_resp2: '',
         turma: null,
 
@@ -50,7 +68,13 @@ function Alunos() {
                 telefone_resp2: prev.telefone_resp1,
                 email_resp2: prev.email_resp1,
                 cpf_resp2: prev.cpf_resp1,
-                endereco_resp2: prev.endereco_resp1,
+                cep_resp2: prev.cep_resp1,
+                rua_resp2: prev.rua_resp1,
+                numero_resp2: prev.numero_resp1,
+                complemento_resp2: prev.complemento_resp1,
+                bairro_resp2: prev.bairro_resp1,
+                cidade_resp2: prev.cidade_resp1,
+                estado_resp2: prev.estado_resp1,
                 parentesco_resp2: prev.parentesco_resp1,
             }));
             setDesabilitarResp2(true);
@@ -63,11 +87,36 @@ function Alunos() {
         objAlunos.telefone_resp1,
         objAlunos.email_resp1,
         objAlunos.cpf_resp1,
-        objAlunos.endereco_resp1,
+        objAlunos.cep_resp1,
+        objAlunos.rua_resp1,
+        objAlunos.numero_resp1,
+        objAlunos.complemento_resp1,
+        objAlunos.bairro_resp1,
+        objAlunos.cidade_resp1,
+        objAlunos.estado_resp1,
         objAlunos.parentesco_resp1,
     ]);
 
-    const aoDigitar = (e) => {
+    const buscarCEP = async (cep) => {
+        const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        if (resp.ok) {
+            const data = await resp.json();
+            if (!data.erro) return data;
+        }
+        return null;
+    };
+
+    const preencherEndereco = (prefixo, dados) => {
+        setObjAlunos(prev => ({
+            ...prev,
+            [`${prefixo}rua`]: dados.logradouro || '',
+            [`${prefixo}bairro`]: dados.bairro || '',
+            [`${prefixo}cidade`]: dados.localidade || '',
+            [`${prefixo}estado`]: dados.uf || ''
+        }));
+    };
+
+    const aoDigitar = async (e) => {
         const { name, type, value, checked } = e.target;
         const novoValor = type === "checkbox" ? checked : value;
 
@@ -82,11 +131,25 @@ function Alunos() {
                 atualizado.email_resp1 = prev.email;
             }
             if (name === "mesmoEnderecoAluno" && checked) {
-                atualizado.endereco_resp1 = prev.endereco;
+                atualizado.cep_resp1 = prev.cep;
+                atualizado.rua_resp1 = prev.rua;
+                atualizado.numero_resp1 = prev.numero;
+                atualizado.complemento_resp1 = prev.complemento;
+                atualizado.bairro_resp1 = prev.bairro;
+                atualizado.cidade_resp1 = prev.cidade;
+                atualizado.estado_resp1 = prev.estado;
             }
 
             return atualizado;
         });
+
+        if (name.startsWith('cep') && value.replace(/\D/g, '').length === 8) {
+            let prefixo = '';
+            if (name === 'cep_resp1') prefixo = 'resp1_';
+            else if (name === 'cep_resp2') prefixo = 'resp2_';
+            const dados = await buscarCEP(value.replace(/\D/g, ''));
+            if (dados) preencherEndereco(prefixo, dados);
+        }
     };
 
 

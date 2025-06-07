@@ -44,9 +44,46 @@ function Formulario({
                                         value={obj.data} onChange={eventoTeclado} />
                                 </div>
 
-                                <div className="col-md-3">
-                                    <input type="text" className="form-control" name="endereco"
-                                        value={obj.endereco} placeholder="Endereço" onChange={eventoTeclado} />
+                                <div className="col-md-2">
+                                    <IMaskInput
+                                        mask="00000-000"
+                                        className="form-control"
+                                        name="cep"
+                                        value={obj.cep}
+                                        placeholder="CEP"
+                                        onAccept={(value) => eventoTeclado({ target: { name: 'cep', value } })}
+                                    />
+                                </div>
+
+                                <div className="col-md-4">
+                                    <input type="text" className="form-control" name="rua"
+                                        value={obj.rua} placeholder="Rua" onChange={eventoTeclado} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="numero"
+                                        value={obj.numero} placeholder="Número" onChange={eventoTeclado} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="complemento"
+                                        value={obj.complemento}
+                                        placeholder="Complemento" onChange={eventoTeclado} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="bairro"
+                                        value={obj.bairro} placeholder="Bairro" onChange={eventoTeclado} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="cidade"
+                                        value={obj.cidade} placeholder="Cidade" onChange={eventoTeclado} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="estado"
+                                        value={obj.estado} placeholder="Estado" onChange={eventoTeclado} />
                                 </div>
 
                                 <div className="col-md-3">
@@ -137,32 +174,27 @@ function Formulario({
                                         </label>
                                     </div>
                                 </div>
-
-                                <div className="col-md-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="endereco_resp1"
-                                        value={obj.mesmoEnderecoAluno ? obj.endereco : obj.endereco_resp1}
-                                        placeholder="Endereço"
-                                        onChange={eventoTeclado}
-                                        disabled={obj.mesmoEnderecoAluno}
-                                    />
-                                    <div className="form-check">
-                                        <input
-                                            type="checkbox"
-                                            className="form-check-input"
-                                            id="mesmoEnderecoAluno"
-                                            name="mesmoEnderecoAluno"
-                                            checked={obj.mesmoEnderecoAluno}
-                                            onChange={eventoTeclado}
-                                        />
-                                        <label className="form-check-label" htmlFor="mesmoEnderecoAluno">
-                                            Mesmo endereço do aluno
-                                        </label>
-                                    </div>
+                                <div className="col-md-2">
+                                    <IMaskInput mask="00000-000" className="form-control" name="cep_resp1" value={obj.mesmoEnderecoAluno ? obj.cep : obj.cep_resp1} placeholder="CEP" onAccept={(value) => eventoTeclado({ target: { name: cep_resp1, value } })} disabled={obj.mesmoEnderecoAluno} />
                                 </div>
-
+                                <div className="col-md-4">
+                                    <input type="text" className="form-control" name="rua_resp1" value={obj.mesmoEnderecoAluno ? obj.rua : obj.rua_resp1} placeholder="Rua" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="numero_resp1" value={obj.mesmoEnderecoAluno ? obj.numero : obj.numero_resp1} placeholder="Número" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="complemento_resp1" value={obj.mesmoEnderecoAluno ? obj.complemento : obj.complemento_resp1} placeholder="Complemento" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="bairro_resp1" value={obj.mesmoEnderecoAluno ? obj.bairro : obj.bairro_resp1} placeholder="Bairro" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="cidade_resp1" value={obj.mesmoEnderecoAluno ? obj.cidade : obj.cidade_resp1} placeholder="Cidade" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="estado_resp1" value={obj.mesmoEnderecoAluno ? obj.estado : obj.estado_resp1} placeholder="Estado" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
+                                </div>
                                 <div className="col-md-3">
                                     <input
                                         type="text"
@@ -227,6 +259,66 @@ function Formulario({
                                         onChange={eventoTeclado}
                                         disabled={desabilitarResp2}
                                     />
+                                </div>
+
+                                <div className="col-md-3">
+                                    <IMaskInput
+                                        mask="000.000.000-00"
+                                        className="form-control"
+                                        name="cpf_resp2"
+                                        value={obj.cpf_resp2}
+                                        placeholder="CPF"
+                                        onAccept={(value) => eventoTeclado({ target: { name: 'cpf_resp2', value } })}
+                                        disabled={desabilitarResp2}
+                                    />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <IMaskInput
+                                        mask="00000-000"
+                                        className="form-control"
+                                        name="cep_resp2"
+                                        value={obj.cep_resp2}
+                                        placeholder="CEP"
+                                        onAccept={(value) => eventoTeclado({ target: { name: 'cep_resp2', value } })}
+                                        disabled={desabilitarResp2}
+                                    />
+                                </div>
+
+                                <div className="col-md-4">
+                                    <input type="text" className="form-control" name="rua_resp2"
+                                        value={obj.rua_resp2}
+                                        placeholder="Rua" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="numero_resp2"
+                                        value={obj.numero_resp2}
+                                        placeholder="Número" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="complemento_resp2"
+                                        value={obj.complemento_resp2}
+                                        placeholder="Complemento" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="bairro_resp2"
+                                        value={obj.bairro_resp2}
+                                        placeholder="Bairro" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="cidade_resp2"
+                                        value={obj.cidade_resp2}
+                                        placeholder="Cidade" onChange={eventoTeclado} disabled={desabilitarResp2} />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <input type="text" className="form-control" name="estado_resp2"
+                                        value={obj.estado_resp2}
+                                        placeholder="Estado" onChange={eventoTeclado} disabled={desabilitarResp2} />
                                 </div>
 
                                 <div className="col-md-3">
