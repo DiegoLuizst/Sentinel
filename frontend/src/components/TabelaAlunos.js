@@ -18,7 +18,6 @@ function Tabela({ vetor, selecionar }) {
     const [alunoSelecionado, setAlunoSelecionado] = useState(null);
 
     useEffect(() => {
-        // Função para carregar um script externo
         const loadScript = (src) => {
             return new Promise((resolve, reject) => {
                 const script = document.createElement("script");
@@ -32,13 +31,15 @@ function Tabela({ vetor, selecionar }) {
 
         async function loadScriptsAndInitTable() {
             try {
-                await loadScript("/assets/js/core/jquery-3.7.1.min.js");
-                await loadScript("/assets/js/core/popper.min.js");
-                await loadScript("/assets/js/core/bootstrap.min.js");
-                await loadScript("/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js");
-                await loadScript("/assets/js/plugin/datatables/datatables.min.js");
-                await loadScript("/assets/js/kaiadmin.min.js");
-                await loadScript("/assets/js/setting-demo2.js");
+                if (!window.$ || !window.$.fn.DataTable) {
+                    await loadScript("/assets/js/core/jquery-3.7.1.min.js");
+                    await loadScript("/assets/js/core/popper.min.js");
+                    await loadScript("/assets/js/core/bootstrap.min.js");
+                    await loadScript("/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js");
+                    await loadScript("/assets/js/plugin/datatables/datatables.min.js");
+                    await loadScript("/assets/js/kaiadmin.min.js");
+                    await loadScript("/assets/js/setting-demo2.js");
+                }
 
                 setTimeout(() => {
                     if (window.$ && window.$.fn.DataTable) {
@@ -77,7 +78,7 @@ function Tabela({ vetor, selecionar }) {
         }
 
         loadScriptsAndInitTable();
-    }, []);
+    }, [vetor]);
 
     // Abre o modal e seta o aluno selecionado
     const abrirModal = (aluno) => {
