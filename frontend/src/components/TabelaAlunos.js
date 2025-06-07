@@ -108,7 +108,7 @@ function Tabela({ vetor, selecionar }) {
                         </div>
                         <div className="card-body">
                             <div className="table-responsive">
-                                <table id="tabela" className="display table table-striped table-hover">
+                                <table id="tabela" key={vetor.length} className="display table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
