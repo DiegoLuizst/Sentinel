@@ -71,7 +71,7 @@ function Tabela({ vetor, selecionar }) {
             if (window.$ && window.$.fn.DataTable) {
                 const tabela = window.$("#tabela");
                 if (window.$.fn.DataTable.isDataTable(tabela)) {
-                    tabela.DataTable().destroy(true);
+                    tabela.DataTable().destroy();
                 }
             }
         };
