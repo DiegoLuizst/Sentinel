@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Formulario from "../components/FormularioAlunos";
 import Tabela from "../components/TabelaAlunos";
 import Alert from '../components/Alert';
@@ -68,7 +68,7 @@ function Alunos() {
 
     useEffect(() => {
         buscarAlunos();
-    }, []);
+    }, [buscarAlunos]);
 
     useEffect(() => {
         if (sincronizarResp1) {
@@ -262,11 +262,11 @@ function Alunos() {
         setDesabilitarResp2(false);
     };
 
-    const buscarAlunos = () => {
+    const buscarAlunos = useCallback(() => {
         fetchWithAuth("/listar-alunos")
             .then(data => setAlunos(data))
             .catch(error => console.error("Erro ao buscar alunos:", error));
-    };
+    }, []);
 
     const fetchWithAuth = async (url, options = {}) => {
         const response = await fetch(`http://localhost:8080${url}`, {
