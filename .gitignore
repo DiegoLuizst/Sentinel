@@ -1,0 +1,15 @@
+# Backend (Java)
+target/
+*.log
+*.class
+*.jar
+*.war
+
+# Frontend (React)
+node_modules/
+build/
+.env
+
+# Geral
+.DS_Store
+.vscode/
