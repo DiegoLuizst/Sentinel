@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Formulario from "../components/FormularioAlunos";
 import Tabela from "../components/TabelaAlunos";
 import Alert from '../components/Alert';
@@ -64,7 +64,7 @@ function Alunos() {
     const [desabilitarResp2, setDesabilitarResp2] = useState(false);
     const [alertMsg, setAlertMsg] = useState("");
     const [confirmMsg, setConfirmMsg] = useState("");
-    const [confirmAction, setConfirmAction] = useState(() => {});
+    const confirmAction = useRef(() => {});
 
     useEffect(() => {
         buscarAlunos();
@@ -180,7 +180,7 @@ function Alunos() {
     };
 
     const showConfirm = (action, message) => {
-        setConfirmAction(() => action);
+        confirmAction.current = action;
         setConfirmMsg(message);
         window.$('#confirmAluno').modal('show');
     };
@@ -312,7 +312,7 @@ function Alunos() {
 
 
                     <Tabela vetor={alunos} selecionar={selecionarAluno} />
-                    <ConfirmModal id="confirmAluno" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
+                    <ConfirmModal id="confirmAluno" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction.current()} />
                 </div>
             </div>
         </>

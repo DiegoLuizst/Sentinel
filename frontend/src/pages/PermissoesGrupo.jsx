@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Formulario from '../components/FormularioPermissaoGrupo';
 import Tabela from '../components/TabelaPermissaoGrupo';
 import Alert from '../components/Alert';
@@ -17,7 +17,7 @@ function PermissoesGrupo() {
     const [objPermissaoGrupo, setObjPermissaoGrupo] = useState(permissaoGrupoInicial);
     const [alertMsg, setAlertMsg] = useState("");
     const [confirmMsg, setConfirmMsg] = useState("");
-    const [confirmAction, setConfirmAction] = useState(() => {});
+    const confirmAction = useRef(() => {});
 
     // Carregar grupos e páginas
     useEffect(() => {
@@ -56,7 +56,7 @@ function PermissoesGrupo() {
     };
 
     const showConfirm = (action, message) => {
-        setConfirmAction(() => action);
+        confirmAction.current = action;
         setConfirmMsg(message);
         window.$('#confirmGrupo').modal('show');
     };
@@ -152,7 +152,7 @@ function PermissoesGrupo() {
                 alterar={() => showConfirm(alterar, 'Deseja alterar o grupo?')}
             />
             <Tabela vetor={grupos} selecionar={selecionarPermissao} />
-            <ConfirmModal id="confirmGrupo" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
+            <ConfirmModal id="confirmGrupo" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction.current()} />
         </>
     );
 }

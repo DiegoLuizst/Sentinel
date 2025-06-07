@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import Formulario from '../components/FormularioUsuarios';
 import Tabela from '../components/TabelaUsuarios';
@@ -23,7 +23,7 @@ function Usuarios() {
     const [gruposPermissao, setGruposPermissao] = useState([]);
     const [alertMsg, setAlertMsg] = useState("");
     const [confirmMsg, setConfirmMsg] = useState("");
-    const [confirmAction, setConfirmAction] = useState(() => {});
+    const confirmAction = useRef(() => {});
 
 
     //UseEfect
@@ -60,7 +60,7 @@ function Usuarios() {
     };
 
     const showConfirm = (action, message) => {
-        setConfirmAction(() => action);
+        confirmAction.current = action;
         setConfirmMsg(message);
         window.$('#confirmUsuario').modal('show');
     };
@@ -282,7 +282,7 @@ function Usuarios() {
                         gruposPermissao={gruposPermissao}
                     />
                     <Tabela vetor={usuarios} selecionar={selecionarUsuario} />
-                    <ConfirmModal id="confirmUsuario" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
+                    <ConfirmModal id="confirmUsuario" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction.current()} />
                 </div>
             </div>
         </>
