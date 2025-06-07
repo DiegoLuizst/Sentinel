@@ -38,8 +38,9 @@ public class AlunosServico {
         } else if (aluno.getGenero() == null || aluno.getGenero().isEmpty()) {
             resposta.setMensagem("O gênero do aluno é obrigatório!");
             return new ResponseEntity<>(resposta, HttpStatus.BAD_REQUEST);
-        } else if (aluno.getEndereco() == null || aluno.getEndereco().isEmpty()) {
-            resposta.setMensagem("O Endereço do aluno é obrigatório!");
+        } else if (aluno.getCep() == null || aluno.getCep().isEmpty()
+                || aluno.getRua() == null || aluno.getRua().isEmpty()) {
+            resposta.setMensagem("O endereço do aluno é obrigatório!");
             return new ResponseEntity<>(resposta, HttpStatus.BAD_REQUEST);
         } else if (aluno.getTelefone() == null || aluno.getTelefone().isEmpty()) {
             resposta.setMensagem("O telefone do aluno é obrigatório!");
@@ -55,8 +56,9 @@ public class AlunosServico {
         } else if (aluno.getCpf_resp1() == null || aluno.getCpf_resp1().isEmpty()) {
             resposta.setMensagem("O CPF do responsável 1 é obrigatório!");
             return new ResponseEntity<>(resposta, HttpStatus.BAD_REQUEST);
-        } else if (aluno.getEndereco_resp1() == null || aluno.getEndereco_resp1().isEmpty()) {
-            resposta.setMensagem("O Endereço do responsável 1 é obrigatório!");
+        } else if (aluno.getCep_resp1() == null || aluno.getCep_resp1().isEmpty()
+                || aluno.getRua_resp1() == null || aluno.getRua_resp1().isEmpty()) {
+            resposta.setMensagem("O endereço do responsável 1 é obrigatório!");
             return new ResponseEntity<>(resposta, HttpStatus.BAD_REQUEST);
         } else if (aluno.getParentesco_resp1() == null || aluno.getParentesco_resp1().isEmpty()) {
             resposta.setMensagem("O Parentesco do responsável é obrigatório!");
