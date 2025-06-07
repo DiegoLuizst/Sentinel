@@ -66,9 +66,6 @@ function Alunos() {
     const [confirmMsg, setConfirmMsg] = useState("");
     const confirmAction = useRef(() => {});
 
-    useEffect(() => {
-        buscarAlunos();
-    }, [buscarAlunos]);
 
     useEffect(() => {
         if (sincronizarResp1) {
@@ -284,6 +281,10 @@ function Alunos() {
             .then(data => setAlunos(data))
             .catch(error => console.error("Erro ao buscar alunos:", error));
     }, [fetchWithAuth]);
+
+    useEffect(() => {
+        buscarAlunos();
+    }, [buscarAlunos]);
 
     return (
         <>
