@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import Formulario from '../components/FormularioCargos';
 import Tabela from '../components/TabelaCargos';
@@ -20,7 +20,7 @@ function Cargos() {
     const [objCargos, setObjCargos] = useState(cargo);
     const [alertMsg, setAlertMsg] = useState("");
     const [confirmMsg, setConfirmMsg] = useState("");
-    const [confirmAction, setConfirmAction] = useState(() => {});
+    const confirmActionRef = useRef(() => {});
 
 
 
@@ -46,7 +46,7 @@ function Cargos() {
     }
 
     const showConfirm = (action, message) => {
-        setConfirmAction(() => action);
+        confirmActionRef.current = action;
         setConfirmMsg(message);
         window.$('#confirmCargo').modal('show');
     }
@@ -252,7 +252,7 @@ function Cargos() {
 
                     />
                     <Tabela vetor={cargos} selecionar={selecionarCargo} />
-                    <ConfirmModal id="confirmCargo" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
+                    <ConfirmModal id="confirmCargo" title="Confirmação" message={confirmMsg} onConfirm={() => confirmActionRef.current()} />
                 </div>
             </div>
         </>
