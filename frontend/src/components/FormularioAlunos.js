@@ -175,7 +175,17 @@ function Formulario({
                                     </div>
                                 </div>
                                 <div className="col-md-2">
-                                    <IMaskInput mask="00000-000" className="form-control" name="cep_resp1" value={obj.mesmoEnderecoAluno ? obj.cep : obj.cep_resp1} placeholder="CEP" onAccept={(value) => eventoTeclado({ target: { name: cep_resp1, value } })} disabled={obj.mesmoEnderecoAluno} />
+                                    <IMaskInput
+                                        mask="00000-000"
+                                        className="form-control"
+                                        name="cep_resp1"
+                                        value={obj.mesmoEnderecoAluno ? obj.cep : obj.cep_resp1}
+                                        placeholder="CEP"
+                                        onAccept={(value) =>
+                                            eventoTeclado({ target: { name: 'cep_resp1', value } })
+                                        }
+                                        disabled={obj.mesmoEnderecoAluno}
+                                    />
                                 </div>
                                 <div className="col-md-4">
                                     <input type="text" className="form-control" name="rua_resp1" value={obj.mesmoEnderecoAluno ? obj.rua : obj.rua_resp1} placeholder="Rua" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
