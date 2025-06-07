@@ -66,6 +66,15 @@ function Tabela({ vetor, selecionar }) {
         }
 
         loadScriptsAndInitTable();
+
+        return () => {
+            if (window.$ && window.$.fn.DataTable) {
+                const tabela = window.$("#tabela");
+                if (window.$.fn.DataTable.isDataTable(tabela)) {
+                    tabela.DataTable().destroy();
+                }
+            }
+        };
     }, [vetor]);
 
     const abrirModal = (cargo) => {
