@@ -96,6 +96,7 @@ function Tabela({ vetor, selecionar }) {
                         <div className="table-responsive">
                             <table
                                 id="tabela"
+                                key={vetor.length}
                                 className="display table table-striped table-hover"
                             >
                                 <thead>
