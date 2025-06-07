@@ -25,7 +25,7 @@ function Tabela({ vetor, selecionar }) {
                     </thead>
                     <tbody>
                         {vetor.map((grupo, index) => (
-                            <tr key={index} onClick={() => selecionar(index)} style={{ cursor: 'pointer' }}>
+                            <tr key={grupo.id} onClick={() => selecionar(index)} style={{ cursor: 'pointer' }}>
                                 <td>{index + 1}</td>
                                 <td>{grupo.nome}</td>
                                 <td>
