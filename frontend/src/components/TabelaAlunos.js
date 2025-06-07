@@ -120,7 +120,7 @@ function Tabela({ vetor, selecionar }) {
                                     </thead>
                                     <tbody>
                                         {vetor.map((obj, indice) => (
-                                            <tr key={indice} onClick={() => selecionar(indice)} style={{ cursor: 'pointer' }}>
+                                            <tr key={obj.id} onClick={() => selecionar(indice)} style={{ cursor: 'pointer' }}>
                                                 <td>{indice + 1}</td>
                                                 <td>{obj.nome}</td>
                                                 <td>{obj.nome_resp1} ({obj.parentesco_resp1})</td>
