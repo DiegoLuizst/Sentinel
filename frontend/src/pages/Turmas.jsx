@@ -28,18 +28,6 @@ function Turmas() {
 
 
 
-    //UseEfect
-    useEffect(() => {
-
-        fetch("http://localhost:8080/listar-turmas", {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-            .then(retorno => retorno.json())
-            .then(retorno_convertido => setTurmas(retorno_convertido))
-
-    }, []);
 
 
     //Dados Formulário
