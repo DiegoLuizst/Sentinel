@@ -35,8 +35,14 @@ function Formulario({
                                 </div>
 
                                 <div className="col-md-3">
-                                    <input type="text" className="form-control" name="genero"
-                                        value={obj.genero} placeholder="Gênero do Aluno" onChange={eventoTeclado} />
+                                    <select className="form-select" name="genero" value={obj.genero} onChange={eventoTeclado}>
+                                        <option value="">Selecione o Gênero</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Não-binário">Não-binário</option>
+                                        <option value="Prefere não informar">Prefere não informar</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
                                 </div>
 
                                 <div className="col-md-3">
@@ -222,14 +228,22 @@ function Formulario({
                                     <input type="text" className="form-control" name="estado_resp1" value={obj.mesmoEnderecoAluno ? obj.estado : obj.estado_resp1} placeholder="Estado" onChange={eventoTeclado} disabled={obj.mesmoEnderecoAluno} />
                                 </div>
                                 <div className="col-md-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="parentesco_resp1"
-                                        value={obj.parentesco_resp1}
-                                        placeholder="Parentesco"
-                                        onChange={eventoTeclado}
-                                    />
+                                    <select className="form-select" name="parentesco_resp1" value={obj.parentesco_resp1} onChange={eventoTeclado}>
+                                        <option value="">Parentesco</option>
+                                        <option value="Pai">Pai</option>
+                                        <option value="Mãe">Mãe</option>
+                                        <option value="Padrasto">Padrasto</option>
+                                        <option value="Madrasta">Madrasta</option>
+                                        <option value="Avô">Avô</option>
+                                        <option value="Avó">Avó</option>
+                                        <option value="Tio">Tio</option>
+                                        <option value="Tia">Tia</option>
+                                        <option value="Irmão">Irmão</option>
+                                        <option value="Irmã">Irmã</option>
+                                        <option value="Tutor legal">Tutor legal</option>
+                                        <option value="Responsável">Responsável</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -393,15 +407,22 @@ function Formulario({
                                 </div>
 
                                 <div className="col-md-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="parentesco_resp2"
-                                        value={obj.parentesco_resp2}
-                                        placeholder="Parentesco"
-                                        onChange={eventoTeclado}
-                                        disabled={desabilitarResp2}
-                                    />
+                                    <select className="form-select" name="parentesco_resp2" value={obj.parentesco_resp2} onChange={eventoTeclado} disabled={desabilitarResp2}>
+                                        <option value="">Parentesco</option>
+                                        <option value="Pai">Pai</option>
+                                        <option value="Mãe">Mãe</option>
+                                        <option value="Padrasto">Padrasto</option>
+                                        <option value="Madrasta">Madrasta</option>
+                                        <option value="Avô">Avô</option>
+                                        <option value="Avó">Avó</option>
+                                        <option value="Tio">Tio</option>
+                                        <option value="Tia">Tia</option>
+                                        <option value="Irmão">Irmão</option>
+                                        <option value="Irmã">Irmã</option>
+                                        <option value="Tutor legal">Tutor legal</option>
+                                        <option value="Responsável">Responsável</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
                                 </div>
                             </div>
 
