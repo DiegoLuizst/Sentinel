@@ -1,0 +1,107 @@
+/* Fundo com imagem PNG */
+.login-wrapper {
+    height: 100vh;
+    background: url('/public/assets/img/FundoLogin.png') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Película preta com transparência */
+.login-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* 50% de opacidade */
+    z-index: 1;
+}
+
+/* Tudo dentro do wrapper deve ficar acima da película */
+.overlay {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sobreposição opcional escura para contraste */
+.overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Cartão de login */
+.login-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Grupo com ícone */
+.input-icon {
+    position: relative;
+}
+
+.input-icon .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 16px;
+}
+
+.input-icon input {
+    padding-left: 40px !important;
+}
+
+/* Inputs */
+.form-control {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+}
+
+/* Botão */
+.btn-primary {
+    background-color: #4e54c8;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3439b1;
+    transform: scale(1.03);
+}
+
+.login-card-header {
+    background-color: #000;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    margin-bottom: 20px;
+    /* espaçamento abaixo */
+}
+
+.login-logo {
+    max-width: 150px;
+    height: auto;
+}
