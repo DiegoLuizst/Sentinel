@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import Formulario from '../components/FormularioDisciplinas';
 import Tabela from '../components/TabelaDisciplinas';
+import Alert from '../components/Alert';
+import ConfirmModal from '../components/ConfirmModal';
 
 function Disciplinas() {
 
@@ -17,6 +19,9 @@ function Disciplinas() {
     const [btnCadastrar, setBtnCadastrar] = useState(true);
     const [disciplinas, setDisciplinas] = useState([]);
     const [objDisciplinas, setObjDisciplinas] = useState(disciplina);
+    const [alertMsg, setAlertMsg] = useState("");
+    const [confirmMsg, setConfirmMsg] = useState("");
+    const [confirmAction, setConfirmAction] = useState(() => {});
 
 
 
@@ -41,6 +46,12 @@ function Disciplinas() {
 
     }
 
+    const showConfirm = (action, message) => {
+        setConfirmAction(() => action);
+        setConfirmMsg(message);
+        window.$('#confirmDisciplina').modal('show');
+    }
+
 
     //Cadastrar
     const cadastrar = () => {
@@ -56,7 +67,7 @@ function Disciplinas() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
                     // Atualiza a lista completa
                     fetch("http://localhost:8080/listar-disciplinas", {
@@ -67,7 +78,7 @@ function Disciplinas() {
                         .then(retorno => retorno.json())
                         .then(retorno_convertido => {
                             setDisciplinas(retorno_convertido);
-                            alert("Disciplina Cadastrada com sucesso!");
+                            setAlertMsg("Disciplina Cadastrada com sucesso!");
                             limparForm();
                         });
                 }
@@ -92,10 +103,10 @@ function Disciplinas() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
 
-                    alert("Disciplina Alterada com sucesso!");
+                    setAlertMsg("Disciplina Alterada com sucesso!");
 
                     //copia Vetor
                     let vetorTemp = [...disciplinas];
@@ -137,7 +148,7 @@ function Disciplinas() {
             .then(retorno_convertido => {
                 //Mensagem
 
-                alert(retorno_convertido.mensagem);
+                setAlertMsg(retorno_convertido.mensagem);
 
                 //copia Vetor
                 let vetorTemp = [...disciplinas];
@@ -223,6 +234,7 @@ function Disciplinas() {
     //Retorno
     return (
         <>
+            <Alert message={alertMsg} onClose={() => setAlertMsg("")} />
             <div className="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div>
                     <h3 className="fw-bold mb-3">Cadastro de Disciplinas</h3>
@@ -234,14 +246,15 @@ function Disciplinas() {
                     <Formulario
                         botao={btnCadastrar}
                         eventoTeclado={aoDigitar}
-                        cadastrar={cadastrar}
+                        cadastrar={() => showConfirm(cadastrar, 'Deseja cadastrar a disciplina?')}
                         obj={objDisciplinas}
                         cancelar={limparForm}
-                        excluir={excluir}
-                        alterar={alterar}
+                        excluir={() => showConfirm(excluir, 'Deseja excluir a disciplina?')}
+                        alterar={() => showConfirm(alterar, 'Deseja alterar a disciplina?')}
 
                     />
                     <Tabela vetor={disciplinas} selecionar={selecionarDisciplina} />
+                    <ConfirmModal id="confirmDisciplina" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
                 </div>
             </div>
         </>

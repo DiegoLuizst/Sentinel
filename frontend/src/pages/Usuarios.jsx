@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import Formulario from '../components/FormularioUsuarios';
 import Tabela from '../components/TabelaUsuarios';
+import Alert from '../components/Alert';
+import ConfirmModal from '../components/ConfirmModal';
 
 function Usuarios() {
 
@@ -19,6 +21,9 @@ function Usuarios() {
     const [usuarios, setUsuarios] = useState([]);
     const [objUsuarios, setObjUsuarios] = useState(usuario);
     const [gruposPermissao, setGruposPermissao] = useState([]);
+    const [alertMsg, setAlertMsg] = useState("");
+    const [confirmMsg, setConfirmMsg] = useState("");
+    const [confirmAction, setConfirmAction] = useState(() => {});
 
 
     //UseEfect
@@ -54,6 +59,12 @@ function Usuarios() {
         }
     };
 
+    const showConfirm = (action, message) => {
+        setConfirmAction(() => action);
+        setConfirmMsg(message);
+        window.$('#confirmUsuario').modal('show');
+    };
+
 
     //Cadastrar
     const cadastrar = () => {
@@ -69,7 +80,7 @@ function Usuarios() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
                     // Atualiza a lista completa
                     fetch("http://localhost:8080/listar-users", {
@@ -80,7 +91,7 @@ function Usuarios() {
                         .then(retorno => retorno.json())
                         .then(retorno_convertido => {
                             setUsuarios(retorno_convertido);
-                            alert("Usuario Cadastrado com sucesso!");
+                            setAlertMsg("Usuario Cadastrado com sucesso!");
                             limparForm();
                         });
                 }
@@ -105,10 +116,10 @@ function Usuarios() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
 
-                    alert("Usuario Alterado com sucesso!");
+                    setAlertMsg("Usuario Alterado com sucesso!");
 
                     //copia Vetor
                     let vetorTemp = [...usuarios];
@@ -150,7 +161,7 @@ function Usuarios() {
             .then(retorno_convertido => {
                 //Mensagem
 
-                alert(retorno_convertido.mensagem);
+                setAlertMsg(retorno_convertido.mensagem);
 
                 //copia Vetor
                 let vetorTemp = [...usuarios];
@@ -251,6 +262,7 @@ function Usuarios() {
     //Retorno
     return (
         <>
+            <Alert message={alertMsg} onClose={() => setAlertMsg("")} />
             <div className="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div>
                     <h3 className="fw-bold mb-3">Cadastro de Usuários</h3>
@@ -262,14 +274,15 @@ function Usuarios() {
                     <Formulario
                         botao={btnCadastrar}
                         eventoTeclado={aoDigitar}
-                        cadastrar={cadastrar}
+                        cadastrar={() => showConfirm(cadastrar, 'Deseja cadastrar o usuário?')}
                         obj={objUsuarios}
                         cancelar={limparForm}
-                        excluir={excluir}
-                        alterar={alterar}
+                        excluir={() => showConfirm(excluir, 'Deseja excluir o usuário?')}
+                        alterar={() => showConfirm(alterar, 'Deseja alterar o usuário?')}
                         gruposPermissao={gruposPermissao}
                     />
                     <Tabela vetor={usuarios} selecionar={selecionarUsuario} />
+                    <ConfirmModal id="confirmUsuario" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
                 </div>
             </div>
         </>

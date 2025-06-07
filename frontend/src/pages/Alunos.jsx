@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Formulario from "../components/FormularioAlunos";
 import Tabela from "../components/TabelaAlunos";
+import Alert from '../components/Alert';
+import ConfirmModal from '../components/ConfirmModal';
 
 function Alunos() {
     const alunoInicial = {
@@ -60,6 +62,9 @@ function Alunos() {
     const [objAlunos, setObjAlunos] = useState(alunoInicial);
     const [sincronizarResp1, setSincronizarResp1] = useState(false);
     const [desabilitarResp2, setDesabilitarResp2] = useState(false);
+    const [alertMsg, setAlertMsg] = useState("");
+    const [confirmMsg, setConfirmMsg] = useState("");
+    const [confirmAction, setConfirmAction] = useState(() => {});
 
     useEffect(() => {
         buscarAlunos();
@@ -174,6 +179,12 @@ function Alunos() {
         }
     };
 
+    const showConfirm = (action, message) => {
+        setConfirmAction(() => action);
+        setConfirmMsg(message);
+        window.$('#confirmAluno').modal('show');
+    };
+
 
     const cadastrar = () => {
         fetch("http://localhost:8080/cadastrar-aluno", {
@@ -187,9 +198,9 @@ function Alunos() {
             .then(resp => resp.json())
             .then(data => {
                 if (data.mensagem !== undefined) {
-                    alert(data.mensagem);
+                    setAlertMsg(data.mensagem);
                 } else {
-                    alert("Aluno cadastrado com sucesso!");
+                    setAlertMsg("Aluno cadastrado com sucesso!");
                     buscarAlunos();
                     limparForm();
                 }
@@ -208,9 +219,9 @@ function Alunos() {
             .then(resp => resp.json())
             .then(data => {
                 if (data.mensagem !== undefined) {
-                    alert(data.mensagem);
+                    setAlertMsg(data.mensagem);
                 } else {
-                    alert("Aluno alterado com sucesso!");
+                    setAlertMsg("Aluno alterado com sucesso!");
                     const temp = [...alunos];
                     const indice = temp.findIndex(a => a.id === objAlunos.id);
                     temp[indice] = objAlunos;
@@ -229,7 +240,7 @@ function Alunos() {
         })
             .then(resp => resp.json())
             .then(data => {
-                alert(data.mensagem);
+                setAlertMsg(data.mensagem);
                 const temp = alunos.filter(a => a.id !== objAlunos.id);
                 setAlunos(temp);
                 limparForm();
@@ -276,6 +287,7 @@ function Alunos() {
 
     return (
         <>
+            <Alert message={alertMsg} onClose={() => setAlertMsg("")} />
             <div className="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div>
                     <h3 className="fw-bold mb-3">Cadastro de Alunos</h3>
@@ -287,11 +299,11 @@ function Alunos() {
                     <Formulario
                         botao={btnCadastrar}
                         eventoTeclado={aoDigitar}
-                        cadastrar={cadastrar}
+                        cadastrar={() => showConfirm(cadastrar, 'Deseja cadastrar o aluno?')}
                         obj={objAlunos}
                         cancelar={limparForm}
-                        excluir={excluir}
-                        alterar={alterar}
+                        excluir={() => showConfirm(excluir, 'Deseja excluir o aluno?')}
+                        alterar={() => showConfirm(alterar, 'Deseja alterar o aluno?')}
                         sincronizarResp1={() => setSincronizarResp1(!sincronizarResp1)}
                         setSincronizarResp1={setSincronizarResp1}
                         desabilitarResp2={desabilitarResp2}
@@ -300,6 +312,7 @@ function Alunos() {
 
 
                     <Tabela vetor={alunos} selecionar={selecionarAluno} />
+                    <ConfirmModal id="confirmAluno" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
                 </div>
             </div>
         </>
