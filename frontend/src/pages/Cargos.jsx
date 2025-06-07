@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import Formulario from '../components/FormularioCargos';
 import Tabela from '../components/TabelaCargos';
+import Alert from '../components/Alert';
+import ConfirmModal from '../components/ConfirmModal';
 
 function Cargos() {
 
@@ -16,6 +18,9 @@ function Cargos() {
     const [btnCadastrar, setBtnCadastrar] = useState(true);
     const [cargos, setCargos] = useState([]);
     const [objCargos, setObjCargos] = useState(cargo);
+    const [alertMsg, setAlertMsg] = useState("");
+    const [confirmMsg, setConfirmMsg] = useState("");
+    const [confirmAction, setConfirmAction] = useState(() => {});
 
 
 
@@ -40,6 +45,12 @@ function Cargos() {
 
     }
 
+    const showConfirm = (action, message) => {
+        setConfirmAction(() => action);
+        setConfirmMsg(message);
+        window.$('#confirmCargo').modal('show');
+    }
+
 
     //Cadastrar
     const cadastrar = () => {
@@ -55,7 +66,7 @@ function Cargos() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
                     // Atualiza a lista completa
                     fetch("http://localhost:8080/listar-cargos", {
@@ -66,7 +77,7 @@ function Cargos() {
                         .then(retorno => retorno.json())
                         .then(retorno_convertido => {
                             setCargos(retorno_convertido);
-                            alert("Cargo Cadastrado com sucesso!");
+                            setAlertMsg("Cargo Cadastrado com sucesso!");
                             limparForm();
                         });
                 }
@@ -91,10 +102,10 @@ function Cargos() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
 
-                    alert("Cargo Alterado com sucesso!");
+                    setAlertMsg("Cargo Alterado com sucesso!");
 
                     //copia Vetor
                     let vetorTemp = [...cargos];
@@ -136,7 +147,7 @@ function Cargos() {
             .then(retorno_convertido => {
                 //Mensagem
 
-                alert(retorno_convertido.mensagem);
+                setAlertMsg(retorno_convertido.mensagem);
 
                 //copia Vetor
                 let vetorTemp = [...cargos];
@@ -221,6 +232,7 @@ function Cargos() {
     //Retorno
     return (
         <>
+            <Alert message={alertMsg} onClose={() => setAlertMsg("")} />
             <div className="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div>
                     <h3 className="fw-bold mb-3">Cadastro de Cargos</h3>
@@ -232,14 +244,15 @@ function Cargos() {
                     <Formulario
                         botao={btnCadastrar}
                         eventoTeclado={aoDigitar}
-                        cadastrar={cadastrar}
+                        cadastrar={() => showConfirm(cadastrar, 'Deseja cadastrar o cargo?')}
                         obj={objCargos}
                         cancelar={limparForm}
-                        excluir={excluir}
-                        alterar={alterar}
+                        excluir={() => showConfirm(excluir, 'Deseja excluir o cargo?')}
+                        alterar={() => showConfirm(alterar, 'Deseja alterar o cargo?')}
 
                     />
                     <Tabela vetor={cargos} selecionar={selecionarCargo} />
+                    <ConfirmModal id="confirmCargo" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
                 </div>
             </div>
         </>

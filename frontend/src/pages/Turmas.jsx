@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import Formulario from '../components/FormularioTurmas';
 import Tabela from '../components/TabelaTurmas';
+import Alert from '../components/Alert';
+import ConfirmModal from '../components/ConfirmModal';
 
 function Turmas() {
 
@@ -20,6 +22,9 @@ function Turmas() {
     const [btnCadastrar, setBtnCadastrar] = useState(true);
     const [turmas, setTurmas] = useState([]);
     const [objTurmas, setObjTurmas] = useState(turma);
+    const [alertMsg, setAlertMsg] = useState("");
+    const [confirmMsg, setConfirmMsg] = useState("");
+    const [confirmAction, setConfirmAction] = useState(() => {});
 
 
 
@@ -44,6 +49,12 @@ function Turmas() {
 
     }
 
+    const showConfirm = (action, message) => {
+        setConfirmAction(() => action);
+        setConfirmMsg(message);
+        window.$('#confirmTurma').modal('show');
+    }
+
 
     //Cadastrar
     const cadastrar = () => {
@@ -59,7 +70,7 @@ function Turmas() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
                     // Atualiza a lista completa
                     fetch("http://localhost:8080/listar-turmas", {
@@ -70,7 +81,7 @@ function Turmas() {
                         .then(retorno => retorno.json())
                         .then(retorno_convertido => {
                             setTurmas(retorno_convertido);
-                            alert("Turma Cadastrada com sucesso!");
+                            setAlertMsg("Turma Cadastrada com sucesso!");
                             limparForm();
                         });
                 }
@@ -95,10 +106,10 @@ function Turmas() {
             .then(retorno => retorno.json())
             .then(retorno_convertido => {
                 if (retorno_convertido.mensagem !== undefined) {
-                    alert(retorno_convertido.mensagem);
+                    setAlertMsg(retorno_convertido.mensagem);
                 } else {
 
-                    alert("Turma Alterada com sucesso!");
+                    setAlertMsg("Turma Alterada com sucesso!");
 
                     //copia Vetor
                     let vetorTemp = [...turmas];
@@ -140,7 +151,7 @@ function Turmas() {
             .then(retorno_convertido => {
                 //Mensagem
 
-                alert(retorno_convertido.mensagem);
+                setAlertMsg(retorno_convertido.mensagem);
 
                 //copia Vetor
                 let vetorTemp = [...turmas];
@@ -229,6 +240,7 @@ function Turmas() {
     //Retorno
     return (
         <>
+            <Alert message={alertMsg} onClose={() => setAlertMsg("")} />
             <div className="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div>
                     <h3 className="fw-bold mb-3">Cadastro de Turmas</h3>
@@ -240,14 +252,15 @@ function Turmas() {
                     <Formulario
                         botao={btnCadastrar}
                         eventoTeclado={aoDigitar}
-                        cadastrar={cadastrar}
+                        cadastrar={() => showConfirm(cadastrar, 'Deseja cadastrar a turma?')}
                         obj={objTurmas}
                         cancelar={limparForm}
-                        excluir={excluir}
-                        alterar={alterar}
+                        excluir={() => showConfirm(excluir, 'Deseja excluir a turma?')}
+                        alterar={() => showConfirm(alterar, 'Deseja alterar a turma?')}
 
                     />
                     <Tabela vetor={turmas} selecionar={selecionarTurma} />
+                    <ConfirmModal id="confirmTurma" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
                 </div>
             </div>
         </>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import Formulario from '../components/FormularioPermissaoGrupo';
 import Tabela from '../components/TabelaPermissaoGrupo';
+import Alert from '../components/Alert';
+import ConfirmModal from '../components/ConfirmModal';
 
 function PermissoesGrupo() {
     const permissaoGrupoInicial = {
@@ -13,6 +15,9 @@ function PermissoesGrupo() {
     const [grupos, setGrupos] = useState([]);
     const [paginas, setPaginas] = useState([]);
     const [objPermissaoGrupo, setObjPermissaoGrupo] = useState(permissaoGrupoInicial);
+    const [alertMsg, setAlertMsg] = useState("");
+    const [confirmMsg, setConfirmMsg] = useState("");
+    const [confirmAction, setConfirmAction] = useState(() => {});
 
     // Carregar grupos e páginas
     useEffect(() => {
@@ -50,6 +55,12 @@ function PermissoesGrupo() {
         }
     };
 
+    const showConfirm = (action, message) => {
+        setConfirmAction(() => action);
+        setConfirmMsg(message);
+        window.$('#confirmGrupo').modal('show');
+    };
+
 
     const limparForm = () => {
         setObjPermissaoGrupo(permissaoGrupoInicial);
@@ -67,7 +78,7 @@ function PermissoesGrupo() {
         })
             .then(r => r.json())
             .then(r => {
-                alert("Grupo cadastrado!");
+                setAlertMsg("Grupo cadastrado!");
                 setGrupos([...grupos, r]);
                 limparForm();
             });
@@ -84,7 +95,7 @@ function PermissoesGrupo() {
         })
             .then(r => r.json())
             .then(r => {
-                alert("Grupo alterado!");
+                setAlertMsg("Grupo alterado!");
                 const copia = [...grupos];
                 const i = copia.findIndex(g => g.id === objPermissaoGrupo.id);
                 copia[i] = objPermissaoGrupo;
@@ -109,7 +120,7 @@ function PermissoesGrupo() {
                 return response.json();
             })
             .then(data => {
-                alert(data.mensagem);
+                setAlertMsg(data.mensagem);
                 if (data.mensagem === "Permissão removida com sucesso!") {
                     const novaLista = grupos.filter(g => g.id !== objPermissaoGrupo.id);
                     setGrupos(novaLista);
@@ -117,7 +128,7 @@ function PermissoesGrupo() {
                 }
             })
             .catch(error => {
-                alert(error.mensagem || "Erro ao excluir permissão");
+                setAlertMsg(error.mensagem || "Erro ao excluir permissão");
             });
     };
 
@@ -128,18 +139,20 @@ function PermissoesGrupo() {
 
     return (
         <>
+            <Alert message={alertMsg} onClose={() => setAlertMsg("")} />
             <h3>Cadastro de Permissões por Grupo</h3>
             <Formulario
                 botao={btnCadastrar}
                 eventoTeclado={aoDigitar}
-                cadastrar={cadastrar}
+                cadastrar={() => showConfirm(cadastrar, 'Deseja cadastrar o grupo?')}
                 obj={objPermissaoGrupo}
                 paginas={paginas}
                 cancelar={limparForm}
-                excluir={excluir}
-                alterar={alterar}
+                excluir={() => showConfirm(excluir, 'Deseja excluir o grupo?')}
+                alterar={() => showConfirm(alterar, 'Deseja alterar o grupo?')}
             />
             <Tabela vetor={grupos} selecionar={selecionarPermissao} />
+            <ConfirmModal id="confirmGrupo" title="Confirmação" message={confirmMsg} onConfirm={() => confirmAction()} />
         </>
     );
 }
