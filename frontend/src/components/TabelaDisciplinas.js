@@ -8,7 +8,7 @@ function Tabela({ vetor, selecionar }) {
             return new Promise((resolve, reject) => {
                 const script = document.createElement("script");
                 script.src = src;
-                script.async = true;
+                script.async = false;
                 script.onload = resolve;
                 script.onerror = reject;
                 document.body.appendChild(script);
