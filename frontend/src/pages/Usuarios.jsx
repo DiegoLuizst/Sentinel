@@ -26,18 +26,6 @@ function Usuarios() {
     const confirmAction = useRef(() => {});
 
 
-    //UseEfect
-    useEffect(() => {
-
-        fetch("http://localhost:8080/listar-users", {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-            .then(retorno => retorno.json())
-            .then(retorno_convertido => setUsuarios(retorno_convertido))
-
-    }, []);
 
 
     //Dados Formulário
