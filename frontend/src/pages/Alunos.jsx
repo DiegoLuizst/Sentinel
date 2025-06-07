@@ -43,10 +43,15 @@ function Alunos() {
         parentesco_resp2: '',
         turma: null,
 
-        // adicione estas 3 propriedades
+        // controles de sincronização de dados do responsável 1 com o aluno
         mesmoTelefoneAluno: false,
         mesmoEmailAluno: false,
-        mesmoEnderecoAluno: false
+        mesmoEnderecoAluno: false,
+
+        // controles de sincronização de dados do responsável 2 com o aluno
+        mesmoTelefoneAlunoResp2: false,
+        mesmoEmailAlunoResp2: false,
+        mesmoEnderecoAlunoResp2: false
     };
 
 
@@ -106,13 +111,14 @@ function Alunos() {
         return null;
     };
 
-    const preencherEndereco = (prefixo, dados) => {
+    const preencherEndereco = (sufixo, dados) => {
+        const final = sufixo ? `_${sufixo}` : '';
         setObjAlunos(prev => ({
             ...prev,
-            [`${prefixo}rua`]: dados.logradouro || '',
-            [`${prefixo}bairro`]: dados.bairro || '',
-            [`${prefixo}cidade`]: dados.localidade || '',
-            [`${prefixo}estado`]: dados.uf || ''
+            [`rua${final}`]: dados.logradouro || '',
+            [`bairro${final}`]: dados.bairro || '',
+            [`cidade${final}`]: dados.localidade || '',
+            [`estado${final}`]: dados.uf || ''
         }));
     };
 
@@ -140,15 +146,31 @@ function Alunos() {
                 atualizado.estado_resp1 = prev.estado;
             }
 
+            if (name === "mesmoTelefoneAlunoResp2" && checked) {
+                atualizado.telefone_resp2 = prev.telefone;
+            }
+            if (name === "mesmoEmailAlunoResp2" && checked) {
+                atualizado.email_resp2 = prev.email;
+            }
+            if (name === "mesmoEnderecoAlunoResp2" && checked) {
+                atualizado.cep_resp2 = prev.cep;
+                atualizado.rua_resp2 = prev.rua;
+                atualizado.numero_resp2 = prev.numero;
+                atualizado.complemento_resp2 = prev.complemento;
+                atualizado.bairro_resp2 = prev.bairro;
+                atualizado.cidade_resp2 = prev.cidade;
+                atualizado.estado_resp2 = prev.estado;
+            }
+
             return atualizado;
         });
 
         if (name.startsWith('cep') && value.replace(/\D/g, '').length === 8) {
-            let prefixo = '';
-            if (name === 'cep_resp1') prefixo = 'resp1_';
-            else if (name === 'cep_resp2') prefixo = 'resp2_';
+            let sufixo = '';
+            if (name === 'cep_resp1') sufixo = 'resp1';
+            else if (name === 'cep_resp2') sufixo = 'resp2';
             const dados = await buscarCEP(value.replace(/\D/g, ''));
-            if (dados) preencherEndereco(prefixo, dados);
+            if (dados) preencherEndereco(sufixo, dados);
         }
     };
 
