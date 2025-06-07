@@ -13,3 +13,6 @@ build/
 # Geral
 .DS_Store
 .vscode/
+
+# IDE Metadata
+.metadata/

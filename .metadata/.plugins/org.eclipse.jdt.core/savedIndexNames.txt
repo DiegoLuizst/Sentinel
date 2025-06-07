@@ -1,3 +1,0 @@
-INDEX VERSION 1.134+C:\Users\DiegoDxt\Desktop\Diego\Dev\WKP\.metadata\.plugins\org.eclipse.jdt.core
-4017854442.index
-1865797976.index
