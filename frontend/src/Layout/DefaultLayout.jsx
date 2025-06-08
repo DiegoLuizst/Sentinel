@@ -71,7 +71,7 @@ function DefaultLayout() {
                                         setSubmenuAberto(!submenuAberto);
                                     }}
                                 >
-                                    <i class="fa-solid fa-folder-open"></i>
+                                    <i className="fa-solid fa-folder-open"></i>
                                     <p>Cadastro e Consulta</p>
                                     <span className="caret"></span>
                                 </a>
