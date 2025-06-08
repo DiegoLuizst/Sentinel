@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Tabela({ vetor, selecionar }) {
     const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(null);
 
+    useEffect(() => {
+        console.log('TabelaDisciplinas - vetor atualizado:', vetor);
+    }, [vetor]);
+
     const abrirModal = (disciplina) => {
+        console.log('TabelaDisciplinas - abrirModal:', disciplina);
         setDisciplinaSelecionada(disciplina);
         if (window.$) {
             window.$("#modalVisualizarDisciplina").modal("show");

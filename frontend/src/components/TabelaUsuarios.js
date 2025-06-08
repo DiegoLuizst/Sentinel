@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Tabela({ vetor, selecionar }) {
     const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
 
+    useEffect(() => {
+        console.log('TabelaUsuarios - vetor atualizado:', vetor);
+    }, [vetor]);
+
     const abrirModal = (usuario) => {
+        console.log('TabelaUsuarios - abrirModal:', usuario);
         setUsuarioSelecionado(usuario);
         if (window.$) {
             window.$("#modalVisualizarUsuario").modal("show");

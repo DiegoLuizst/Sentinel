@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Tabela({ vetor, selecionar }) {
     const [turmaSelecionada, setTurmaSelecionada] = useState(null);
 
+    useEffect(() => {
+        console.log('TabelaTurmas - vetor atualizado:', vetor);
+    }, [vetor]);
+
     const abrirModal = (turma) => {
+        console.log('TabelaTurmas - abrirModal:', turma);
         setTurmaSelecionada(turma);
         if (window.$) {
             window.$("#modalVisualizarTurma").modal("show");
