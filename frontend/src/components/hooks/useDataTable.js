@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5';
 import 'datatables.net-responsive-bs5';
@@ -9,7 +9,7 @@ if (!window.$) {
 }
 
 export default function useDataTable(ref, data) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (process.env.NODE_ENV === 'test') return;
     if (!ref.current) return;
     const $table = $(ref.current);
