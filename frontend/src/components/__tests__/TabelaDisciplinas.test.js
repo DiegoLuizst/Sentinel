@@ -20,7 +20,7 @@ test('renderiza tabela de disciplinas', () => {
 
 test('atualiza ao adicionar e remover disciplinas', () => {
   const { rerender } = render(<TabelaDisciplinas vetor={[]} selecionar={() => {}} />);
-  const getRows = () => document.querySelectorAll('tbody tr');
+  const getRows = () => Array.from(document.querySelectorAll('tbody tr')).filter(row => !row.querySelector('.dt-empty'));
   expect(getRows()).toHaveLength(0);
 
   const disciplinas = [{ id: 1, nome: 'Matematica', carga_horaria: '40' }];

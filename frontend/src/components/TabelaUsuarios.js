@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import useDataTable from "./hooks/useDataTable";
 
 function Tabela({ vetor, selecionar }) {
     const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
+    const tableRef = useRef(null);
+    useDataTable(tableRef, vetor);
 
     useEffect(() => {
         console.log('TabelaUsuarios - vetor atualizado:', vetor);
@@ -29,6 +32,7 @@ function Tabela({ vetor, selecionar }) {
                                 id="tabela"
                                 key={vetor.length}
                                 className="table table-striped table-hover"
+                                ref={tableRef}
                             >
                                 <thead>
                                     <tr>

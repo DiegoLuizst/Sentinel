@@ -20,7 +20,7 @@ test('renderiza tabela de usuários', () => {
 
 test('atualiza ao adicionar e remover usuarios', () => {
   const { rerender } = render(<TabelaUsuarios vetor={[]} selecionar={() => {}} />);
-  const getRows = () => document.querySelectorAll('tbody tr');
+  const getRows = () => Array.from(document.querySelectorAll('tbody tr')).filter(row => !row.querySelector('.dt-empty'));
   expect(getRows()).toHaveLength(0);
 
   const usuarios = [
