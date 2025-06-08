@@ -23,8 +23,10 @@ function Disciplinas() {
     const [confirmMsg, setConfirmMsg] = useState("");
     const confirmAction = useRef(() => {});
 
-
-
+    //Dados Formulário
+    const aoDigitar = (e) => {
+        setObjDisciplinas({ ...objDisciplinas, [e.target.name]: e.target.value });
+    };
 
     const showConfirm = (action, message) => {
         confirmAction.current = action;
