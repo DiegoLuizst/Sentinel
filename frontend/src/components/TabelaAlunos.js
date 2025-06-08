@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import useDataTable from "./hooks/useDataTable";
 
 function InfoItem({ icon, label, value }) {
     return (
@@ -16,6 +17,8 @@ function formatarData(dataStr) {
 
 function Tabela({ vetor, selecionar }) {
     const [alunoSelecionado, setAlunoSelecionado] = useState(null);
+    const tableRef = useRef(null);
+    useDataTable(tableRef, vetor);
 
     useEffect(() => {
         console.log('TabelaAlunos - vetor atualizado:', vetor);
@@ -41,7 +44,7 @@ function Tabela({ vetor, selecionar }) {
                         </div>
                         <div className="card-body">
                             <div className="table-responsive">
-                                <table id="tabela" key={vetor.length} className="table table-striped table-hover">
+                                <table id="tabela" key={vetor.length} className="table table-striped table-hover" ref={tableRef}>
                                     <thead>
                                         <tr>
                                             <th>#</th>

@@ -20,7 +20,7 @@ test('renderiza tabela de cargos', () => {
 
 test('atualiza ao adicionar e remover cargos', () => {
   const { rerender } = render(<TabelaCargos vetor={[]} selecionar={() => {}} />);
-  const getRows = () => document.querySelectorAll('tbody tr');
+  const getRows = () => Array.from(document.querySelectorAll('tbody tr')).filter(row => !row.querySelector('.dt-empty'));
   expect(getRows()).toHaveLength(0);
 
   const cargos = [{ id: 1, nome: 'Professor' }];
