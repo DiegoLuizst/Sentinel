@@ -4,6 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Importação do Bootstrap e do jQuery para suportar modais
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import $ from 'jquery';
+
+// Torna o jQuery disponível globalmente para componentes que utilizam window.$
+window.$ = $;
+window.jQuery = $;
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
