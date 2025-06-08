@@ -1,22 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import useDataTable from "./hooks/useDataTable";
 
-function InfoItem({ icon, label, value }) {
-    return (
-        <div className="mb-2">
-            <strong><i className={`fas fa-${icon} me-2`}></i>{label}:</strong> {value || "-"}
-        </div>
-    );
-}
-
-function formatarData(dataStr) {
-    if (!dataStr) return "-";
-    const data = new Date(dataStr);
-    return data.toLocaleDateString("pt-BR");
-}
 
 function Tabela({ vetor, selecionar }) {
-    const [alunoSelecionado, setAlunoSelecionado] = useState(null);
     const tableRef = useRef(null);
     useDataTable(tableRef, vetor);
 
@@ -24,15 +10,6 @@ function Tabela({ vetor, selecionar }) {
         console.log('TabelaAlunos - vetor atualizado:', vetor);
     }, [vetor]);
 
-    // Abre o modal e seta o aluno selecionado
-    const abrirModal = (aluno) => {
-        console.log('TabelaAlunos - abrirModal:', aluno);
-        setAlunoSelecionado(aluno);
-        // Abre modal com jQuery Bootstrap
-        if (window.$) {
-            window.$("#modalVisualizarAluno").modal("show");
-        }
-    };
 
     return (
         <>
@@ -62,7 +39,6 @@ function Tabela({ vetor, selecionar }) {
                                                 <td>{obj.nome_resp1} ({obj.parentesco_resp1})</td>
                                                 <td>{obj.telefone_resp1}</td>
                                                 <td>
-                                                <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -74,69 +50,6 @@ function Tabela({ vetor, selecionar }) {
                 </div>
             </div>
 
-            {/* Modal com abas */}
-            <div className="modal fade" id="modalVisualizarAluno" tabIndex="-1" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title"><i className="fas fa-user-graduate me-2"></i>Detalhes do Aluno</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                        </div>
-                        <div className="modal-body">
-                            {alunoSelecionado ? (
-                                <>
-                                    <ul className="nav nav-tabs mb-3" role="tablist">
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#tabAluno" type="button" role="tab">Aluno</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link" data-bs-toggle="tab" data-bs-target="#tabResp1" type="button" role="tab">Responsável 1</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link" data-bs-toggle="tab" data-bs-target="#tabResp2" type="button" role="tab">Responsável 2</button>
-                                        </li>
-                                    </ul>
-
-                                    <div className="tab-content">
-                                        <div className="tab-pane fade show active" id="tabAluno" role="tabpanel">
-                                            <InfoItem icon="user" label="Nome" value={alunoSelecionado.nome} />
-                                            <InfoItem icon="calendar" label="Data de Nascimento" value={formatarData(alunoSelecionado.data)} />
-                                            <InfoItem icon="venus-mars" label="Gênero" value={alunoSelecionado.genero} />
-                                            <InfoItem icon="home" label="Endereço" value={`${alunoSelecionado.rua}, ${alunoSelecionado.numero} - ${alunoSelecionado.bairro} - ${alunoSelecionado.cidade}/${alunoSelecionado.estado}`} />
-                                            <InfoItem icon="phone" label="Telefone" value={alunoSelecionado.telefone} />
-                                            <InfoItem icon="envelope" label="Email" value={alunoSelecionado.email} />
-                                            <InfoItem icon="chalkboard-teacher" label="Turma" value={alunoSelecionado.turma?.nome} />
-                                        </div>
-
-                                        <div className="tab-pane fade" id="tabResp1" role="tabpanel">
-                                            <InfoItem icon="user" label="Nome" value={alunoSelecionado.nome_resp1} />
-                                            <InfoItem icon="phone" label="Telefone" value={alunoSelecionado.telefone_resp1} />
-                                            <InfoItem icon="envelope" label="Email" value={alunoSelecionado.email_resp1} />
-                                            <InfoItem icon="id-card" label="CPF" value={alunoSelecionado.cpf_resp1} />
-                                            <InfoItem icon="map-marker-alt" label="Endereço" value={`${alunoSelecionado.rua_resp1}, ${alunoSelecionado.numero_resp1} - ${alunoSelecionado.bairro_resp1} - ${alunoSelecionado.cidade_resp1}/${alunoSelecionado.estado_resp1}`} />
-                                            <InfoItem icon="users" label="Parentesco" value={alunoSelecionado.parentesco_resp1} />
-                                        </div>
-
-                                        <div className="tab-pane fade" id="tabResp2" role="tabpanel">
-                                            <InfoItem icon="user" label="Nome" value={alunoSelecionado.nome_resp2} />
-                                            <InfoItem icon="phone" label="Telefone" value={alunoSelecionado.telefone_resp2} />
-                                            <InfoItem icon="envelope" label="Email" value={alunoSelecionado.email_resp2} />
-                                            <InfoItem icon="id-card" label="CPF" value={alunoSelecionado.cpf_resp2} />
-                                            <InfoItem icon="map-marker-alt" label="Endereço" value={`${alunoSelecionado.rua_resp2}, ${alunoSelecionado.numero_resp2} - ${alunoSelecionado.bairro_resp2} - ${alunoSelecionado.cidade_resp2}/${alunoSelecionado.estado_resp2}`} />
-                                            <InfoItem icon="users" label="Parentesco" value={alunoSelecionado.parentesco_resp2} />
-                                        </div>
-                                    </div>
-                                </>
-                            ) : (
-                                <p>Carregando...</p>
-                            )}
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Fechar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     );
 }

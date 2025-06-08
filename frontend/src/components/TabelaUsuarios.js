@@ -1,8 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import useDataTable from "./hooks/useDataTable";
 
 function Tabela({ vetor, selecionar }) {
-    const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
     const tableRef = useRef(null);
     useDataTable(tableRef, vetor);
 
@@ -10,13 +9,6 @@ function Tabela({ vetor, selecionar }) {
         console.log('TabelaUsuarios - vetor atualizado:', vetor);
     }, [vetor]);
 
-    const abrirModal = (usuario) => {
-        console.log('TabelaUsuarios - abrirModal:', usuario);
-        setUsuarioSelecionado(usuario);
-        if (window.$) {
-            window.$("#modalVisualizarUsuario").modal("show");
-        }
-    };
 
     return (
         <>
@@ -51,7 +43,6 @@ function Tabela({ vetor, selecionar }) {
                                             <td>{obj.email}</td>
                                             <td>{obj.permissaoGrupo.nome}</td>
                                             <td>
-                                                <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
                                             </td>
                                         </tr>
                                     ))}
@@ -63,29 +54,6 @@ function Tabela({ vetor, selecionar }) {
             </div>
         </div>
 
-        {/* Modal de visualização */}
-        <div className="modal fade" id="modalVisualizarUsuario" tabIndex="-1" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title"><i className="fa fa-user me-2"></i>Detalhes do Usuário</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div className="modal-body">
-                        {usuarioSelecionado && (
-                            <div>
-                                <p><strong>Nome:</strong> {usuarioSelecionado.nome}</p>
-                                <p><strong>Email:</strong> {usuarioSelecionado.email}</p>
-                                <p><strong>Permissão:</strong> {usuarioSelecionado.permissaoGrupo?.nome}</p>
-                            </div>
-                        )}
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         </>
     );
 }

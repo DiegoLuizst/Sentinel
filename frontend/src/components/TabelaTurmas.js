@@ -1,8 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import useDataTable from "./hooks/useDataTable";
 
 function Tabela({ vetor, selecionar }) {
-    const [turmaSelecionada, setTurmaSelecionada] = useState(null);
     const tableRef = useRef(null);
     useDataTable(tableRef, vetor);
 
@@ -10,13 +9,6 @@ function Tabela({ vetor, selecionar }) {
         console.log('TabelaTurmas - vetor atualizado:', vetor);
     }, [vetor]);
 
-    const abrirModal = (turma) => {
-        console.log('TabelaTurmas - abrirModal:', turma);
-        setTurmaSelecionada(turma);
-        if (window.$) {
-            window.$("#modalVisualizarTurma").modal("show");
-        }
-    };
 
     return (
         <>
@@ -58,7 +50,6 @@ function Tabela({ vetor, selecionar }) {
 
 
                                             <td>
-                                                <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
                                             </td>
                                         </tr>
                                     ))}
@@ -68,32 +59,6 @@ function Tabela({ vetor, selecionar }) {
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div className="modal fade" id="modalVisualizarTurma" tabIndex="-1" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title"><i className="fa fa-users me-2"></i>Detalhes da Turma</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div className="modal-body">
-                        {turmaSelecionada && (
-                            <div>
-                                <p><strong>Nome:</strong> {turmaSelecionada.nome}</p>
-                                <p><strong>Ano:</strong> {turmaSelecionada.ano}</p>
-                                <p><strong>Turno:</strong> {turmaSelecionada.turno}</p>
-                                <p><strong>Sala:</strong> {turmaSelecionada.sala}</p>
-                                <p><strong>Nível de Ensino:</strong> {turmaSelecionada.nivel}</p>
-                            </div>
-                        )}
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         </>
     );
 }
