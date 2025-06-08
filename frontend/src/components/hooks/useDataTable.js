@@ -14,7 +14,7 @@ export default function useDataTable(ref, data) {
     if (!ref.current) return;
     const $table = $(ref.current);
     if ($.fn.DataTable.isDataTable($table)) {
-      $table.DataTable().destroy(true);
+      $table.DataTable().destroy();
     }
     $table.DataTable({
       destroy: true,
@@ -45,7 +45,7 @@ export default function useDataTable(ref, data) {
     });
     return () => {
       if ($.fn.DataTable.isDataTable($table)) {
-        $table.DataTable().destroy(true);
+        $table.DataTable().destroy();
       }
     };
   }, [ref, data]);
