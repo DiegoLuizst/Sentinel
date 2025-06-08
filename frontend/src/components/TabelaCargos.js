@@ -23,7 +23,7 @@ function Tabela({ vetor, selecionar }) {
                             <table
                                 id="tabela"
                                 key={vetor.length}
-                                className="display table table-striped table-hover"
+                                className="table table-striped table-hover"
                             >
                                 <thead>
                                     <tr>
@@ -33,14 +33,6 @@ function Tabela({ vetor, selecionar }) {
 
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nome</th>
-                                        <th>Ações</th>
-
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     {vetor.map((obj, indice) => (
                                         <tr key={obj.id} onClick={() => { selecionar(indice); }} style={{ cursor: 'pointer' }}>
