@@ -1,8 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import useDataTable from "./hooks/useDataTable";
 
 function Tabela({ vetor, selecionar }) {
-    const [cargoSelecionado, setCargoSelecionado] = useState(null);
     const tableRef = useRef(null);
     useDataTable(tableRef, vetor);
 
@@ -10,13 +9,6 @@ function Tabela({ vetor, selecionar }) {
         console.log('TabelaCargos - vetor atualizado:', vetor);
     }, [vetor]);
 
-    const abrirModal = (cargo) => {
-        console.log('TabelaCargos - abrirModal:', cargo);
-        setCargoSelecionado(cargo);
-        if (window.$) {
-            window.$("#modalVisualizarCargo").modal("show");
-        }
-    };
 
     return (
         <>
@@ -50,32 +42,12 @@ function Tabela({ vetor, selecionar }) {
 
 
                                             <td>
-                                                <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div className="modal fade" id="modalVisualizarCargo" tabIndex="-1" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title"><i className="fa fa-briefcase me-2"></i>Detalhes do Cargo</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div className="modal-body">
-                        {cargoSelecionado && (
-                            <p><strong>Nome:</strong> {cargoSelecionado.nome}</p>
-                        )}
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </div>
