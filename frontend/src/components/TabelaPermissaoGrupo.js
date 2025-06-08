@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Tabela({ vetor, selecionar }) {
     const [grupoSelecionado, setGrupoSelecionado] = useState(null);
 
+    useEffect(() => {
+        console.log('TabelaPermissaoGrupo - vetor atualizado:', vetor);
+    }, [vetor]);
+
     const abrirModal = (grupo) => {
+        console.log('TabelaPermissaoGrupo - abrirModal:', grupo);
         setGrupoSelecionado(grupo);
         if (window.$) {
             window.$("#modalVisualizarGrupo").modal("show");

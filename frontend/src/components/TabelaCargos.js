@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Tabela({ vetor, selecionar }) {
     const [cargoSelecionado, setCargoSelecionado] = useState(null);
 
+    useEffect(() => {
+        console.log('TabelaCargos - vetor atualizado:', vetor);
+    }, [vetor]);
+
     const abrirModal = (cargo) => {
+        console.log('TabelaCargos - abrirModal:', cargo);
         setCargoSelecionado(cargo);
         if (window.$) {
             window.$("#modalVisualizarCargo").modal("show");

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function InfoItem({ icon, label, value }) {
     return (
@@ -17,8 +17,13 @@ function formatarData(dataStr) {
 function Tabela({ vetor, selecionar }) {
     const [alunoSelecionado, setAlunoSelecionado] = useState(null);
 
+    useEffect(() => {
+        console.log('TabelaAlunos - vetor atualizado:', vetor);
+    }, [vetor]);
+
     // Abre o modal e seta o aluno selecionado
     const abrirModal = (aluno) => {
+        console.log('TabelaAlunos - abrirModal:', aluno);
         setAlunoSelecionado(aluno);
         // Abre modal com jQuery Bootstrap
         if (window.$) {
