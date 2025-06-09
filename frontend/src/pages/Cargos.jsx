@@ -167,7 +167,10 @@ function Cargos() {
 
     useEffect(() => {
         fetchWithAuth("/listar-cargos")
-            .then(data => setCargos(data))
+            .then(data => {
+                console.log("Dados recebidos de /listar-cargos:", data);
+                setCargos(data);
+            })
             .catch(error => console.error("Erro ao buscar cargos:", error));
     }, []);
 

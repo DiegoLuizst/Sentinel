@@ -173,7 +173,10 @@ function Turmas() {
 
     useEffect(() => {
         fetchWithAuth("/listar-turmas")
-            .then(data => setTurmas(data))
+            .then(data => {
+                console.log("Dados recebidos de /listar-turmas:", data);
+                setTurmas(data);
+            })
             .catch(error => console.error("Erro ao buscar turmas:", error));
     }, []);
 
