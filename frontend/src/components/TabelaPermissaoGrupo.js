@@ -1,6 +1,9 @@
 import { useRef, useEffect } from "react";
 import useDataTable from "./hooks/useDataTable";
 
+// eslint-disable-next-line no-unused-vars
+const abrirModal = () => {};
+
 function Tabela({ vetor, selecionar }) {
     const tableRef = useRef(null);
     useDataTable(tableRef, vetor);
