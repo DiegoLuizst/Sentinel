@@ -27,7 +27,10 @@ function PermissoesGrupo() {
             }
         })
             .then(resp => resp.json())
-            .then(data => setGrupos(data));
+            .then(data => {
+                console.log("Dados recebidos de /listar-permissoes-grupo:", data);
+                setGrupos(data);
+            });
 
         fetch("http://localhost:8080/listar-permissoes-pagina", {
             headers: {
@@ -35,7 +38,10 @@ function PermissoesGrupo() {
             }
         })
             .then(resp => resp.json())
-            .then(data => setPaginas(data));
+            .then(data => {
+                console.log("Dados recebidos de /listar-permissoes-pagina:", data);
+                setPaginas(data);
+            });
     }, []);
 
     const aoDigitar = (e) => {
