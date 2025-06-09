@@ -19,3 +19,7 @@ cd frontend
 npm install
 npm start
 ```
+
+Se ocorrer o erro `Can't resolve 'css.gg/icons/all.css'`, remova a pasta
+`node_modules` do frontend e execute `npm install` novamente para garantir que a
+versão `2.0.0` do `css.gg` seja instalada.
