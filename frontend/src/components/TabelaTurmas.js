@@ -40,7 +40,13 @@ function Tabela({ vetor, selecionar }) {
                                     </thead>
                                     <tbody>
                                         {vetor.map((obj, indice) => (
-                                            <tr key={obj.id} onClick={() => { selecionar(indice); }} style={{ cursor: 'pointer' }}>
+                                            <tr
+                                                key={obj.id}
+                                                onClick={() => {
+                                                    selecionar(indice);
+                                                }}
+                                                style={{ cursor: 'pointer' }}
+                                            >
                                                 <td>{indice + 1}</td>
                                                 <td>{obj.nome}</td>
                                                 <td>{obj.ano}</td>
@@ -50,22 +56,16 @@ function Tabela({ vetor, selecionar }) {
 
 
                                                 <td>
-                                                </td>
-                                            </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        {vetor.map((obj, indice) => (
-                                            <tr key={obj.id} onClick={() => { selecionar(indice); }} style={{ cursor: 'pointer' }}>
-                                                <td>{indice + 1}</td>
-                                                <td>{obj.nome}</td>
-                                                <td>{obj.ano}</td>
-                                                <td>{obj.turno}</td>
-                                                <td>{obj.sala}</td>
-                                                <td>{obj.nivel}</td>
-
-
-                                                <td>
-                                                    <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            abrirModal(obj);
+                                                        }}
+                                                        className="btn btn-info"
+                                                        title="Visualizar"
+                                                    >
+                                                        <i className="fa fa-eye"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}

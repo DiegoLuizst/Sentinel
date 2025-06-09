@@ -37,33 +37,28 @@ function Tabela({ vetor, selecionar }) {
                                     </thead>
                                     <tbody>
                                         {vetor.map((obj, indice) => (
-                                            <tr key={obj.id} onClick={() => { selecionar(indice); }} style={{ cursor: 'pointer' }}>
+                                            <tr
+                                                key={obj.id}
+                                                onClick={() => {
+                                                    selecionar(indice);
+                                                }}
+                                                style={{ cursor: 'pointer' }}
+                                            >
                                                 <td>{indice + 1}</td>
                                                 <td>{obj.nome}</td>
                                                 <td>{obj.email}</td>
                                                 <td>{obj.permissaoGrupo.nome}</td>
                                                 <td>
-                                                </td>
-                                            </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Permissão</th>
-                                            <th>Ações</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        {vetor.map((obj, indice) => (
-                                            <tr key={obj.id} onClick={() => { selecionar(indice); }} style={{ cursor: 'pointer' }}>
-                                                <td>{indice + 1}</td>
-                                                <td>{obj.nome}</td>
-                                                <td>{obj.email}</td>
-                                                <td>{obj.permissaoGrupo.nome}</td>
-                                                <td>
-                                                    <button onClick={(e) => { e.stopPropagation(); abrirModal(obj); }} className="btn btn-info" title="Visualizar"><i className="fa fa-eye"></i></button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            abrirModal(obj);
+                                                        }}
+                                                        className="btn btn-info"
+                                                        title="Visualizar"
+                                                    >
+                                                        <i className="fa fa-eye"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
