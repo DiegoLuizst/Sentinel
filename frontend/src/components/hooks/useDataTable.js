@@ -1,16 +1,11 @@
 import { useLayoutEffect } from 'react';
 import $ from 'jquery';
 import DataTable from 'datatables.net-bs5';
-import DataTableResponsive from 'datatables.net-responsive-bs5';
+import 'datatables.net-responsive-bs5';
 
-if (!window.$) {
-  window.$ = $;
-  window.jQuery = $;
-}
-
-// Register DataTable plugins with jQuery instance
-DataTable(window, $);
-DataTableResponsive(window, $);
+// jQuery já é utilizado internamente pelo DataTables através dos módulos
+// importados acima, portanto não é necessário registrá-lo manualmente com o
+// objeto `window`, o que causava erro em alguns ambientes.
 
 export default function useDataTable(ref, data) {
   useLayoutEffect(() => {
