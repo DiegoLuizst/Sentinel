@@ -21,7 +21,7 @@ function Tabela({ vetor, selecionar }) {
                         <div className="card-body">
                             <div className="table-responsive">
                                 <table
-                                    id="tabela"
+                                    id="tabela-usuarios"
                                     className="table table-striped table-hover"
                                     ref={tableRef}
                                 >
