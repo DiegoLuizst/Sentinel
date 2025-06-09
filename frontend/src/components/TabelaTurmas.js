@@ -55,18 +55,7 @@ function Tabela({ vetor, selecionar }) {
                                                 <td>{obj.nivel}</td>
 
 
-                                                <td>
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            abrirModal(obj);
-                                                        }}
-                                                        className="btn btn-info"
-                                                        title="Visualizar"
-                                                    >
-                                                        <i className="fa fa-eye"></i>
-                                                    </button>
-                                                </td>
+                                                <td></td>
                                             </tr>
                                         ))}
                                     </tbody>
