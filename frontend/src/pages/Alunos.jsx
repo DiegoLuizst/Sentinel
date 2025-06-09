@@ -278,7 +278,10 @@ function Alunos() {
 
     const buscarAlunos = useCallback(() => {
         fetchWithAuth("/listar-alunos")
-            .then(data => setAlunos(data))
+            .then(data => {
+                console.log("Dados recebidos de /listar-alunos:", data);
+                setAlunos(data);
+            })
             .catch(error => console.error("Erro ao buscar alunos:", error));
     }, [fetchWithAuth]);
 

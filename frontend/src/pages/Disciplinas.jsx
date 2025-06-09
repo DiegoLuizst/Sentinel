@@ -166,7 +166,10 @@ function Disciplinas() {
 
     useEffect(() => {
         fetchWithAuth("/listar-disciplinas")
-            .then(data => setDisciplinas(data))
+            .then(data => {
+                console.log("Dados recebidos de /listar-disciplinas:", data);
+                setDisciplinas(data);
+            })
             .catch(error => console.error("Erro ao buscar disciplinas:", error));
     }, []);
 

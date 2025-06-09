@@ -183,14 +183,20 @@ function Usuarios() {
 
     useEffect(() => {
         fetchWithAuth("/listar-users")
-            .then(data => setUsuarios(data))
+            .then(data => {
+                console.log("Dados recebidos de /listar-users:", data);
+                setUsuarios(data);
+            })
             .catch(error => console.error("Erro ao buscar usuários:", error));
     }, []);
 
 
     useEffect(() => {
         fetchWithAuth("/listar-permissoes-grupo")
-            .then(data => setGruposPermissao(data))
+            .then(data => {
+                console.log("Dados recebidos de /listar-permissoes-grupo:", data);
+                setGruposPermissao(data);
+            })
             .catch(error => console.error("Erro ao buscar permissões:", error));
     }, []);
     //Selecionar
