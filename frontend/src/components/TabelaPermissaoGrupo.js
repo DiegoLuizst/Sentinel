@@ -14,7 +14,6 @@ function Tabela({ vetor, selecionar }) {
             <div className="card">
                 <div className="card-header">Grupos e Permissões</div>
                 <div className="card-body table-responsive">
-                    <table className="table table-striped table-hover" id="tabela" key={vetor.length} ref={tableRef}>
                         <thead>
                             <tr>
                                 <th>#</th>

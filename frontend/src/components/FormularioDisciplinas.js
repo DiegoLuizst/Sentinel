@@ -41,14 +41,14 @@ function Formulario({ botao, eventoTeclado, cadastrar, obj, cancelar, excluir, a
                                 {
                                     botao
                                         ?
-                                        <div class="card-action d-flex gap-2">
-                                            <button type="button" class="btn btn-warning" onClick={cadastrar}><i class="fa fa-solid fa-plus"></i> Cadastrar</button>
+                                        <div className="card-action d-flex gap-2">
+                                            <button type="button" className="btn btn-warning" onClick={cadastrar}><i className="fa fa-solid fa-plus"></i> Cadastrar</button>
                                         </div>
                                         :
-                                        <div class="card-action d-flex gap-2">
-                                            <button type="button" onClick={alterar} class="btn btn-warning" ><i class="fa fa-solid fa-pen"></i> Alterar</button>
-                                            <button type="button" onClick={excluir} class="btn btn-danger" ><i class="fa fa-solid fa-trash"></i> Excluir</button>
-                                            <button type="button" onClick={cancelar} class="btn btn-black" ><i class="fa fa-solid fa-ban"></i> Cancelar</button>
+                                        <div className="card-action d-flex gap-2">
+                                            <button type="button" onClick={alterar} className="btn btn-warning" ><i className="fa fa-solid fa-pen"></i> Alterar</button>
+                                            <button type="button" onClick={excluir} className="btn btn-danger" ><i className="fa fa-solid fa-trash"></i> Excluir</button>
+                                            <button type="button" onClick={cancelar} className="btn btn-black" ><i className="fa fa-solid fa-ban"></i> Cancelar</button>
 
 
                                         </div>
