@@ -11,6 +11,7 @@ import $ from 'jquery';
 import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'css.gg/icons/all.css';
 
 // Torna o jQuery disponível globalmente para componentes que utilizam window.$
 window.$ = $;
