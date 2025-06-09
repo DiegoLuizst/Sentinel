@@ -10,6 +10,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import $ from 'jquery';
 import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css';
+import 'css.gg/icons/all.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // Torna o jQuery disponível globalmente para componentes que utilizam window.$
 window.$ = $;
