@@ -41,8 +41,9 @@ function Formulario({ botao, eventoTeclado, cadastrar, obj, cancelar, excluir, a
                 <div className="card-header">Permissões do Grupo</div>
                 <div className="card-body">
                     <div className="mb-3">
-                        <label>Nome do Grupo</label>
+                        <label htmlFor="nomeGrupo">Nome do Grupo</label>
                         <input
+                            id="nomeGrupo"
                             type="text"
                             value={obj.nome}
                             className="form-control"
@@ -52,7 +53,7 @@ function Formulario({ botao, eventoTeclado, cadastrar, obj, cancelar, excluir, a
                     </div>
 
                     <div className="mb-3">
-                        <label>Permissões</label>
+                        <span className="form-label">Permissões</span>
                         <div className="row">
                             {paginas.map((p) => (
                                 <div key={p.id} className="col-md-6">
