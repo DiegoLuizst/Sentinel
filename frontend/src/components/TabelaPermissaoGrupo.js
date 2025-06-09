@@ -37,18 +37,7 @@ function Tabela({ vetor, selecionar }) {
                                             ? grupo.permissoes.map((p) => p.nome).join(', ')
                                             : 'Nenhuma'}
                                     </td>
-                                    <td>
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                abrirModal(grupo);
-                                            }}
-                                            className="btn btn-sm btn-info"
-                                            title="Visualizar"
-                                        >
-                                            <i className="fa fa-eye"></i>
-                                        </button>
-                                    </td>
+                                    <td></td>
                                 </tr>
                             ))}
                         </tbody>
