@@ -243,14 +243,6 @@ function Usuarios() {
 
 
 
-    //SelectPErmissoes
-
-    useEffect(() => {
-        fetch("http://localhost:8080/listar-permissoes-grupo") // ajuste para sua URL real
-            .then(response => response.json())
-            .then(data => setGruposPermissao(data))
-            .catch(error => console.error("Erro ao buscar permissões:", error));
-    }, []);
 
 
     //Retorno
