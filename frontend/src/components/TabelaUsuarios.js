@@ -1,27 +1,58 @@
+import Pagination from './Pagination';
+import useTableControls from './hooks/useTableControls';
+
 function Tabela({ vetor }) {
+    const {
+        search,
+        setSearch,
+        requestSort,
+        sortConfig,
+        paginated,
+        page,
+        changePage,
+        pageCount,
+    } = useTableControls(vetor, { keys: ['nome', 'email'] });
+
+    const getArrow = (key) => {
+        if (sortConfig.key !== key) return '';
+        return sortConfig.direction === 'asc' ? ' \u25B2' : ' \u25BC';
+    };
+
     return (
-        <table className="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Permissão</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {vetor.map((obj, indice) => (
-                    <tr key={obj.id}>
-                        <td>{indice + 1}</td>
-                        <td>{obj.nome}</td>
-                        <td>{obj.email}</td>
-                        <td>{obj.permissaoGrupo.nome}</td>
-                        <td></td>
+        <div>
+            <div className="d-flex justify-content-end mb-2">
+                <input
+                    type="text"
+                    className="form-control w-auto"
+                    placeholder="Buscar"
+                    value={search}
+                    onChange={(e) => { setSearch(e.target.value); changePage(1); }}
+                />
+            </div>
+            <table className="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th style={{ cursor: 'pointer' }} onClick={() => requestSort('nome')}>Nome{getArrow('nome')}</th>
+                        <th style={{ cursor: 'pointer' }} onClick={() => requestSort('email')}>Email{getArrow('email')}</th>
+                        <th>Permissão</th>
+                        <th>Ações</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {paginated.map((obj, indice) => (
+                        <tr key={obj.id}>
+                            <td>{(page - 1) * 5 + indice + 1}</td>
+                            <td>{obj.nome}</td>
+                            <td>{obj.email}</td>
+                            <td>{obj.permissaoGrupo.nome}</td>
+                            <td></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <Pagination page={page} pageCount={pageCount} changePage={changePage} />
+        </div>
     );
 }
 
