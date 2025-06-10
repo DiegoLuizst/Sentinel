@@ -1,13 +1,13 @@
+import { useRef } from 'react';
+import useDataTable from './hooks/useDataTable';
 
-
-function Tabela({ vetor }) {
-
-
-
+function Tabela({ vetor, selecionar }) {
+    const tableRef = useRef(null);
+    useDataTable(tableRef, vetor);
 
 
     return (
-        <table className="table">
+        <table ref={tableRef} className="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
@@ -21,7 +21,7 @@ function Tabela({ vetor }) {
             <tbody>
                 {
                     vetor.map((obj, indice) => (
-                        <tr key={indice}>
+                        <tr key={indice} onClick={() => selecionar && selecionar(indice)}>
                             <td>{indice + 1}</td>
                             <td>{obj.nome}</td>
                             <td>{obj.carga_horaria}</td>
