@@ -1,6 +1,11 @@
-function Tabela({ vetor }) {
+import { useRef } from 'react';
+import useDataTable from './hooks/useDataTable';
+
+function Tabela({ vetor, selecionar }) {
+    const tableRef = useRef(null);
+    useDataTable(tableRef, vetor);
     return (
-        <table className="table">
+        <table ref={tableRef} className="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
@@ -11,7 +16,7 @@ function Tabela({ vetor }) {
             </thead>
             <tbody>
                 {vetor.map((grupo, index) => (
-                    <tr key={grupo.id}>
+                    <tr key={grupo.id} onClick={() => selecionar && selecionar(index)}>
                         <td>{index + 1}</td>
                         <td>{grupo.nome}</td>
                         <td>
