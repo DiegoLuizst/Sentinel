@@ -21,7 +21,15 @@ function Disciplinas() {
     const [objDisciplinas, setObjDisciplinas] = useState(disciplina);
     const [alertMsg, setAlertMsg] = useState("");
     const [confirmMsg, setConfirmMsg] = useState("");
-    const confirmAction = useRef(() => {});
+    const confirmAction = useRef(() => { });
+
+
+    //UseEfect
+    useEffect(() => {
+        fetch("http://localhost:8080/listar-disciplinas")
+            .then(retorno => retorno.json())
+            .then(retorno_convertido => setDisciplinas(retorno_convertido));
+    }, []);
 
     const aoDigitar = (e) => {
         setObjDisciplinas({ ...objDisciplinas, [e.target.name]: e.target.value });
